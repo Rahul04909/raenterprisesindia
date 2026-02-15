@@ -16,93 +16,115 @@ body {
 /* Sidebar */
 .admin-sidebar {
     width: 260px;
-    /* Reduced width slightly to match WP better */
     background-color: #1d2327;
     color: #fff;
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
     position: fixed;
-    /* Fixed sidebar */
     top: 0;
     bottom: 0;
     left: 0;
     z-index: 1000;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
 
 .sidebar-header {
-    height: 50px;
-    /* Aligns with top bar */
+    height: 60px;
+    /* Taller header */
     display: flex;
     align-items: center;
     padding: 0 20px;
-    background-color: #1d2327;
-    /* Or darker shade */
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: #101517;
+    /* Darker header */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .sidebar-brand {
-    font-size: 16px;
-    font-weight: 600;
+    font-size: 18px;
+    font-weight: 500;
     color: #fff;
     text-decoration: none;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
 }
 
 .sidebar-menu {
     list-style: none;
-    padding: 10px 0;
+    padding: 0;
     margin: 0;
     flex-grow: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .sidebar-menu li a {
     display: flex;
     align-items: center;
-    padding: 12px 20px;
-    /* Matches WP spacing */
-    color: #f0f0f1;
+    padding: 15px 20px;
+    /* Increased padding */
+    color: #b0b0b0;
+    /* Softer text color */
     text-decoration: none;
     font-size: 14px;
-    transition: background-color 0.1s, color 0.1s;
+    transition: all 0.2s;
+    border-left: 4px solid transparent;
+    /* marker for active/hover */
 }
 
 .sidebar-menu li a i {
     width: 20px;
-    margin-right: 10px;
+    margin-right: 15px;
     color: #a7aaad;
-    /* WP icon color */
     font-size: 16px;
     text-align: center;
+    transition: color 0.2s;
 }
 
-.sidebar-menu li a:hover,
+.sidebar-menu li a:hover {
+    background-color: #101517;
+    color: #2271b1;
+}
+
+.sidebar-menu li a:hover i {
+    color: #2271b1;
+}
+
+/* Active State */
 .sidebar-menu li a.active {
     background-color: #2271b1;
-    /* WP Blue */
     color: #fff;
+    border-left-color: #72aee6;
+    /* Highlight border */
 }
 
-.sidebar-menu li a:hover i,
 .sidebar-menu li a.active i {
     color: #fff;
 }
 
-.sidebar-menu li a:focus {
-    box-shadow: inset 0 0 0 1px #fff, 0 0 0 1px #2271b1;
-    /* Accessiblity focus */
+/* Settings Item Specifics (Push to bottom style) */
+.sidebar-menu li[style*="margin-top: auto"] {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: auto;
+    background-color: rgba(255, 255, 255, 0.02);
 }
 
+.sidebar-menu li[style*="margin-top: auto"]>a {
+    color: #fff;
+    /* Make settings pop slightly more */
+}
 
 /* Main Content Area */
 .admin-content {
     flex-grow: 1;
     margin-left: 260px;
-    /* Push content for fixed sidebar */
     display: flex;
     flex-direction: column;
+    background-color: #f0f0f1;
+    min-width: 0;
+    /* Prevent flex overflow */
 }
 
 /* Admin Top Bar */
