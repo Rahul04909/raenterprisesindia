@@ -1,4 +1,5 @@
 <?php
+$adminBase = '..';
 include '../includes/check_login.php';
 require_once '../../database/db_config.php';
 

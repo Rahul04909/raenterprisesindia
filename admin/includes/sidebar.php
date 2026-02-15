@@ -1,6 +1,7 @@
 <div class="admin-sidebar">
     <div class="sidebar-header">
-        <a href="../index.php" class="sidebar-brand">
+        <?php $adminBase = isset($adminBase) ? $adminBase : '.'; ?>
+        <a href="<?php echo $adminBase; ?>/index.php" class="sidebar-brand">
             <i class="fa-solid fa-gauge-high"></i>
             <span>RA Admin</span>
         </a>
@@ -8,7 +9,7 @@
     
     <ul class="sidebar-menu">
         <li>
-            <a href="../index.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'index.php' && strpos($_SERVER['REQUEST_URI'], 'product-categories') === false ? 'active' : ''; ?>">
+            <a href="<?php echo $adminBase; ?>/index.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'index.php' && strpos($_SERVER['REQUEST_URI'], 'product-categories') === false ? 'active' : ''; ?>">
                 <i class="fa-solid fa-gauge"></i>
                 <span>Dashboard</span>
             </a>
@@ -23,7 +24,7 @@
             <ul class="submenu">
                 <li><a href="#">All Products</a></li>
                 <li><a href="#">Add New</a></li>
-                <li><a href="../product-categories/index.php" class="<?php echo strpos($_SERVER['REQUEST_URI'], 'product-categories') !== false ? 'active' : ''; ?>">Categories</a></li>
+                <li><a href="<?php echo $adminBase; ?>/product-categories/index.php" class="<?php echo strpos($_SERVER['REQUEST_URI'], 'product-categories') !== false ? 'active' : ''; ?>">Categories</a></li>
                 <li><a href="#">Tags</a></li>
             </ul>
         </li>

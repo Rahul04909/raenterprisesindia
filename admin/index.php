@@ -1,4 +1,7 @@
-<?php include 'includes/check_login.php'; ?>
+<?php
+$adminBase = '.';
+include 'includes/check_login.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
