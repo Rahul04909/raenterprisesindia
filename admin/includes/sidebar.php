@@ -13,35 +13,51 @@
                 <span>Dashboard</span>
             </a>
         </li>
-        <li>
+        
+        <li class="menu-item-has-children">
             <a href="#">
                 <i class="fa-solid fa-box-open"></i>
                 <span>Products</span>
+                <span class="submenu-icon"><i class="fa-solid fa-chevron-right"></i></span>
             </a>
+            <ul class="submenu">
+                <li><a href="#">All Products</a></li>
+                <li><a href="#">Add New</a></li>
+                <li><a href="#">Categories</a></li>
+                <li><a href="#">Tags</a></li>
+            </ul>
         </li>
-        <li>
+
+        <li class="menu-item-has-children">
             <a href="#">
                 <i class="fa-solid fa-cart-shopping"></i>
                 <span>Orders</span>
+                <span class="submenu-icon"><i class="fa-solid fa-chevron-right"></i></span>
             </a>
+             <ul class="submenu">
+                <li><a href="#">All Orders</a></li>
+                <li><a href="#">Pending</a></li>
+                <li><a href="#">Completed</a></li>
+            </ul>
         </li>
+
         <li>
             <a href="#">
                 <i class="fa-solid fa-users"></i>
                 <span>Customers</span>
             </a>
         </li>
-        <li>
-            <a href="#">
-                <i class="fa-solid fa-layer-group"></i>
-                <span>Categories</span>
-            </a>
-        </li>
-        <li style="margin-top: auto;"> <!-- Push to bottom if flex (Not standard WP but useful) -->
+        
+        <li class="menu-item-has-children" style="margin-top: auto;">
              <a href="#">
                 <i class="fa-solid fa-gear"></i>
                 <span>Settings</span>
+                <span class="submenu-icon"><i class="fa-solid fa-chevron-right"></i></span>
             </a>
+            <ul class="submenu">
+                <li><a href="#">General</a></li>
+                <li><a href="#">Security</a></li>
+            </ul>
         </li>
     </ul>
 </div>
