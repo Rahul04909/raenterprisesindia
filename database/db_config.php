@@ -2,8 +2,8 @@
 // Database Configuration
 $host = 'localhost';
 $username = 'jhdindus_moglix';
-$password = 'jhdindus_moglix';
-$dbname = 'Rd14072003@./';
+$password = 'Rd14072003@./';
+$dbname = 'jhdindus_moglix';
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
