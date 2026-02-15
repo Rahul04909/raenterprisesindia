@@ -16,17 +16,11 @@ try {
     if (!$brand) {
         die("Brand not found.");
     }
-
-    // Fetch Categories
-    $stmt = $pdo->query("SELECT id, name FROM categories ORDER BY name ASC");
-    $categories = $stmt->fetchAll();
-
 } catch(PDOException $e) {
     die("Error: " . $e->getMessage());
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $category_id = (int)$_POST['category_id'];
     $name = trim($_POST['name']);
     $slug = trim($_POST['slug']);
     $description = trim($_POST['description']);
@@ -63,8 +57,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if (empty($error)) {
-        if (empty($name) || empty($slug) || $category_id == 0) {
-            $error = "Name, Slug, and Category are required.";
+        if (empty($name) || empty($slug)) {
+            $error = "Name and Slug are required.";
         } else {
             try {
                 // Check for duplicate slug
@@ -73,10 +67,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if ($stmt->fetchColumn() > 0) {
                     $error = "Slug already exists.";
                 } else {
-                    $stmt = $pdo->prepare("UPDATE brands SET category_id = ?, name = ?, slug = ?, description = ?, image = ? WHERE id = ?");
-                    if ($stmt->execute([$category_id, $name, $slug, $description, $imagePath, $id])) {
+                    $stmt = $pdo->prepare("UPDATE brands SET name = ?, slug = ?, description = ?, image = ? WHERE id = ?");
+                    if ($stmt->execute([$name, $slug, $description, $imagePath, $id])) {
                         $success = "Brand updated successfully.";
-                        $brand['category_id'] = $category_id;
                         $brand['name'] = $name;
                         $brand['slug'] = $slug;
                         $brand['description'] = $description;
@@ -171,17 +164,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <div class="form-container">
                 <form method="POST" action="" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <label>Category</label>
-                        <select name="category_id" required>
-                            <option value="">Select Category</option>
-                            <?php foreach($categories as $cat): ?>
-                                <option value="<?php echo $cat['id']; ?>" <?php if($cat['id'] == $brand['category_id']) echo 'selected'; ?>>
-                                    <?php echo htmlspecialchars($cat['name']); ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
                     <div class="form-group">
                         <label>Brand Name</label>
                         <input type="text" name="name" value="<?php echo htmlspecialchars($brand['name']); ?>" required>

@@ -8,7 +8,7 @@ $limit = 10;
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $start = ($page - 1) * $limit;
 
-// Fetch Brands with Category Name
+// Fetch Brands
 try {
     // Get total count
     $stmt = $pdo->query("SELECT COUNT(*) FROM brands");
@@ -16,10 +16,7 @@ try {
     $total_pages = ceil($total_results / $limit);
 
     // Get records
-    $sql = "SELECT brands.*, categories.name as category_name 
-            FROM brands 
-            LEFT JOIN categories ON brands.category_id = categories.id 
-            ORDER BY brands.id DESC LIMIT :start, :limit";
+    $sql = "SELECT * FROM brands ORDER BY id DESC LIMIT :start, :limit";
     $stmt = $pdo->prepare($sql);
     $stmt->bindValue(':start', $start, PDO::PARAM_INT);
     $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
@@ -109,13 +106,6 @@ try {
         .add-new-btn:hover {
             background-color: #135e96;
         }
-        .cat-badge {
-            background-color: #f0f0f1;
-            padding: 2px 6px;
-            border-radius: 3px;
-            font-size: 12px;
-            color: #3c434a;
-        }
     </style>
 </head>
 <body>
@@ -135,7 +125,6 @@ try {
                         <th width="50">ID</th>
                         <th width="70">Image</th>
                         <th>Name</th>
-                        <th>Category</th>
                         <th>Slug</th>
                         <th width="150">Actions</th>
                     </tr>
@@ -158,7 +147,6 @@ try {
                                     <?php endif; ?>
                                 </td>
                                 <td><strong><?php echo htmlspecialchars($brand['name']); ?></strong></td>
-                                <td><span class="cat-badge"><?php echo htmlspecialchars($brand['category_name']); ?></span></td>
                                 <td><?php echo htmlspecialchars($brand['slug']); ?></td>
                                 <td>
                                     <a href="edit.php?id=<?php echo $brand['id']; ?>" class="action-btn edit-btn">Edit</a>
@@ -168,7 +156,7 @@ try {
                         <?php endforeach; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="6" style="text-align:center; padding: 20px;">No brands found.</td>
+                            <td colspan="5" style="text-align:center; padding: 20px;">No brands found.</td>
                         </tr>
                     <?php endif; ?>
                 </tbody>

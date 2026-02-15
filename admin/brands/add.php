@@ -6,16 +6,7 @@ require_once '../../database/db_config.php';
 $error = '';
 $success = '';
 
-// Fetch Categories for Dropdown
-try {
-    $stmt = $pdo->query("SELECT id, name FROM categories ORDER BY name ASC");
-    $categories = $stmt->fetchAll();
-} catch(PDOException $e) {
-    die("Error fetching categories: " . $e->getMessage());
-}
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $category_id = (int)$_POST['category_id'];
     $name = trim($_POST['name']);
     $slug = trim($_POST['slug']);
     $description = trim($_POST['description']);
@@ -40,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $newFilename = $slug . '-' . time() . '.' . $ext;
             $uploadDir = '../../assets/uploads/brands/';
             
-            // Create dir if not exists (redundant check)
+            // Create dir if not exists
             if (!file_exists($uploadDir)) {
                 mkdir($uploadDir, 0777, true);
             }
@@ -58,8 +49,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if (empty($error)) {
-        if (empty($name) || empty($slug) || $category_id == 0) {
-            $error = "Name, Slug, and Category are required.";
+        if (empty($name) || empty($slug)) {
+            $error = "Name and Slug are required.";
         } else {
             try {
                 // Check for duplicate slug
@@ -68,8 +59,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if ($stmt->fetchColumn() > 0) {
                     $error = "Slug already exists. Please choose another.";
                 } else {
-                    $stmt = $pdo->prepare("INSERT INTO brands (category_id, name, slug, description, image) VALUES (?, ?, ?, ?, ?)");
-                    if ($stmt->execute([$category_id, $name, $slug, $description, $imagePath])) {
+                    $stmt = $pdo->prepare("INSERT INTO brands (name, slug, description, image) VALUES (?, ?, ?, ?)");
+                    if ($stmt->execute([$name, $slug, $description, $imagePath])) {
                         $success = "Brand added successfully.";
                     } else {
                         $error = "Failed to add brand.";
@@ -151,15 +142,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <div class="form-container">
                 <form method="POST" action="" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <label>Category</label>
-                        <select name="category_id" required>
-                            <option value="">Select Category</option>
-                            <?php foreach($categories as $cat): ?>
-                                <option value="<?php echo $cat['id']; ?>"><?php echo htmlspecialchars($cat['name']); ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
                     <div class="form-group">
                         <label>Brand Name</label>
                         <input type="text" name="name" id="name" required>
