@@ -20,17 +20,21 @@
 .feature-item {
     display: flex;
     align-items: flex-start;
-    width: 19%;
-    /* 5 items, approx 20% each */
-    padding-right: 15px;
+    flex: 1;
+    /* Equal width distribution */
+    padding: 0 15px;
+    /* Equal padding on both sides */
     box-sizing: border-box;
     border-right: 1px solid #e0e0e0;
     /* Vertical separator */
+    justify-content: center;
+    /* Center the content block within the item */
 }
 
 .feature-item:last-child {
     border-right: none;
-    padding-right: 0;
+    padding-right: 15px;
+    /* Maintain padding consistency */
 }
 
 .feature-icon {

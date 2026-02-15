@@ -19,3 +19,10 @@
 <!-- Features/Trust Section -->
 <link rel="stylesheet" href="assets/css/features.css">
 <?php include 'components/features.php'; ?>
+
+<!-- Footer -->
+<link rel="stylesheet" href="assets/css/footer.css">
+<?php include 'includes/footer.php'; ?>
+
+</body>
+</html>
