@@ -1,0 +1,118 @@
+/* Hero Section Container */
+.hero-container {
+    position: relative;
+    width: 100%;
+    margin-top: 10px;
+    /* Slight separation from header */
+    background-color: #f1f2f4;
+    /* Light gray background like Flipkart */
+    overflow: hidden;
+}
+
+/* Carousel Inner Wrapper */
+.hero-carousel {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: 100%;
+}
+
+/* Individual Slide */
+.hero-slide {
+    min-width: 100%;
+    position: relative;
+    cursor: pointer;
+}
+
+.hero-slide img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    /* Maintain specific aspect ratio or max-height if needed */
+    max-height: 350px;
+    /* Standard prominent carousel height */
+}
+
+/* Navigation Buttons */
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.5);
+    /* Semi-transparent white */
+    border: none;
+    padding: 30px 15px;
+    /* Tall button like Flipkart/Amazon */
+    cursor: pointer;
+    z-index: 10;
+    transition: background-color 0.3s, opacity 0.3s;
+    font-size: 20px;
+    color: #333;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.carousel-btn:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.prev-btn {
+    left: 0;
+    border-radius: 0 4px 4px 0;
+}
+
+.next-btn {
+    right: 0;
+    border-radius: 4px 0 0 4px;
+}
+
+/* Pagination Dots */
+.carousel-dots {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 10;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.dot.active {
+    background-color: #fff;
+    transform: scale(1.2);
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .hero-container {
+        margin-top: 0;
+    }
+
+    .hero-slide img {
+        min-height: 180px;
+        /* Ensure visibility on mobile */
+        max-height: 250px;
+    }
+
+    .carousel-btn {
+        padding: 15px 10px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .carousel-btn {
+        display: none;
+        /* Often hidden on very small screens, relying on swipe */
+    }
+}
