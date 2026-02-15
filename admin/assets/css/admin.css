@@ -1,0 +1,274 @@
+/* Admin Dashboard Styles (WordPress-like) */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    background-color: #f0f0f1;
+    color: #3c434a;
+}
+
+/* Layout */
+.admin-wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar */
+.admin-sidebar {
+    width: 260px;
+    /* Reduced width slightly to match WP better */
+    background-color: #1d2327;
+    color: #fff;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    /* Fixed sidebar */
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.sidebar-header {
+    height: 50px;
+    /* Aligns with top bar */
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    background-color: #1d2327;
+    /* Or darker shade */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-brand {
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 10px 0;
+    margin: 0;
+    flex-grow: 1;
+}
+
+.sidebar-menu li a {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    /* Matches WP spacing */
+    color: #f0f0f1;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color 0.1s, color 0.1s;
+}
+
+.sidebar-menu li a i {
+    width: 20px;
+    margin-right: 10px;
+    color: #a7aaad;
+    /* WP icon color */
+    font-size: 16px;
+    text-align: center;
+}
+
+.sidebar-menu li a:hover,
+.sidebar-menu li a.active {
+    background-color: #2271b1;
+    /* WP Blue */
+    color: #fff;
+}
+
+.sidebar-menu li a:hover i,
+.sidebar-menu li a.active i {
+    color: #fff;
+}
+
+.sidebar-menu li a:focus {
+    box-shadow: inset 0 0 0 1px #fff, 0 0 0 1px #2271b1;
+    /* Accessiblity focus */
+}
+
+
+/* Main Content Area */
+.admin-content {
+    flex-grow: 1;
+    margin-left: 260px;
+    /* Push content for fixed sidebar */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Admin Top Bar */
+.admin-header {
+    height: 50px;
+    /* Reduced to WP standard */
+    background-color: #1d2327;
+    /* Dark top bar like WP Admin Bar */
+    border-bottom: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    color: #fff;
+}
+
+/* WP Admin Bar styles */
+.admin-header a {
+    color: #f0f0f1;
+    text-decoration: none;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.admin-header a:hover {
+    color: #72aee6;
+    /* WP hover blue */
+}
+
+.header-left,
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.visit-site-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.user-avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    /* Square in WP but round is modern */
+    background-color: #3c434a;
+}
+
+/* Dashboard Content */
+.admin-main {
+    padding: 20px;
+    max-width: 1200px;
+    /* Prevent stretching on wide screens */
+}
+
+.page-title {
+    font-size: 23px;
+    font-weight: 400;
+    margin: 0 0 20px 0;
+    color: #1d2327;
+}
+
+/* Setup Panel (Since it's a new admin) */
+.welcome-panel {
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    margin-bottom: 20px;
+    padding: 30px;
+    position: relative;
+    /* WP Welcome styling */
+}
+
+.welcome-panel h2 {
+    margin: 0 0 10px;
+    font-size: 21px;
+    font-weight: 400;
+    color: #1d2327;
+}
+
+.welcome-panel p {
+    font-size: 14px;
+    color: #50575e;
+    margin: 0;
+}
+
+/* Stats Widgets */
+.dashboard-widgets {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+}
+
+.widget-card {
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    padding: 20px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+}
+
+.widget-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0 0 15px;
+    color: #1d2327;
+    border-bottom: 1px solid #f0f0f1;
+    padding-bottom: 10px;
+}
+
+.widget-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.widget-value {
+    font-size: 24px;
+    color: #2271b1;
+}
+
+.widget-icon i {
+    font-size: 24px;
+    color: #a7aaad;
+    /* Muted icon */
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .admin-sidebar {
+        width: 60px;
+        /* Collapsed icon view */
+        overflow: hidden;
+    }
+
+    .sidebar-menu li a span {
+        display: none;
+        /* Hide text */
+    }
+
+    .sidebar-brand span {
+        display: none;
+    }
+
+    .admin-content {
+        margin-left: 60px;
+    }
+
+    .sidebar-menu li a {
+        padding: 12px;
+        justify-content: center;
+    }
+
+    .sidebar-menu li a i {
+        margin-right: 0;
+    }
+}
