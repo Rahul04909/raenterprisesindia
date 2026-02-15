@@ -58,11 +58,13 @@ try {
             background-color: #f6f7f7;
         }
         .brand-image {
-            width: 50px;
+            width: 80px;
             height: 50px;
-            object-fit: cover;
+            object-fit: contain;
+            border: 1px solid #ddd;
+            padding: 2px;
             border-radius: 4px;
-            background-color: #f0f0f1;
+            background-color: #fff;
         }
         .action-btn {
             text-decoration: none;
