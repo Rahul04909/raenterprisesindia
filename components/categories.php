@@ -1,36 +1,46 @@
 <?php
-// Define categories with placeholder images matching the descriptive text
-$categories = [
-    ['image' => 'assets/images/categories/24-hrs.png', 'label' => "24 hrs\nDelivery", 'placeholder_text' => '24h'],
-    ['image' => 'assets/images/categories/appliances.png', 'label' => "Electrical &\nAppliances", 'placeholder_text' => 'Appliances'],
-    ['image' => 'assets/images/categories/tools.png', 'label' => "Industrial\nTools", 'placeholder_text' => 'Tools'],
-    ['image' => 'assets/images/categories/office.png', 'label' => "Office\nSupplies", 'placeholder_text' => 'Office'],
-    ['image' => 'assets/images/categories/safety.png', 'label' => "Safety\nSupplies", 'placeholder_text' => 'Safety'],
-    ['image' => 'assets/images/categories/lab.png', 'label' => "Medical & Lab\nSupplies", 'placeholder_text' => 'Lab'],
-    ['image' => 'assets/images/categories/agri.png', 'label' => "Agri &\nGardening", 'placeholder_text' => 'Agri'],
-    ['image' => 'assets/images/categories/construction.png', 'label' => "Construction\nMaterials", 'placeholder_text' => 'Construction'],
-    ['image' => 'assets/images/categories/automotive.png', 'label' => "Automotive", 'placeholder_text' => 'Auto'],
-    ['image' => 'assets/images/categories/packaging.png', 'label' => "Packaging & Material\nHandling", 'placeholder_text' => 'Packaging'],
-     ['image' => 'assets/images/categories/mogli.png', 'label' => "Mogli\nExpress", 'placeholder_text' => 'Mogli']
-];
+// Ensure DB connection is available
+require_once __DIR__ . '/../database/db_config.php';
+
+try {
+    // Fetch categories from the database
+    $stmt = $pdo->query("SELECT * FROM categories ORDER BY name ASC");
+    $categories = $stmt->fetchAll();
+} catch (PDOException $e) {
+    // Fallback or empty if error
+    $categories = [];
+}
 ?>
 
 <div class="categories-wrapper">
     <div class="categories-container">
-        <?php foreach ($categories as $category): ?>
-            <a href="#" class="category-item">
-                <div class="category-image">
-                    <!-- 
-                        Using placehold.co for specific visual simulation. 
-                        In production, replace with actual images in assets/images/categories/ 
-                    -->
-                    <img src="<?php echo $category['image']; ?>" 
-                         alt="<?php echo str_replace("\n", " ", $category['label']); ?>"
-                         title="<?php echo str_replace("\n", " ", $category['label']); ?>"
-                         onerror="this.src='https://placehold.co/60x60/f5f5f5/333333?text=<?php echo urlencode($category['placeholder_text']); ?>'"
-                    >
-                </div>
-            </a>
-        <?php endforeach; ?>
+        <?php if (count($categories) > 0): ?>
+            <?php foreach ($categories as $category): ?>
+                <a href="products.php?category=<?php echo htmlspecialchars($category['slug']); ?>" class="category-item">
+                    <div class="category-image">
+                        <?php 
+                            $imgSrc = $category['image'];
+                            // Fallback image if empty
+                            if (empty($imgSrc)) {
+                                $placeholderText = urlencode($category['name']);
+                                $imgSrc = "https://placehold.co/60x60/f5f5f5/333333?text=$placeholderText";
+                            }
+                        ?>
+                        <img src="<?php echo htmlspecialchars($imgSrc); ?>" 
+                             alt="<?php echo htmlspecialchars($category['name']); ?>"
+                             title="<?php echo htmlspecialchars($category['name']); ?>"
+                             onerror="this.src='https://placehold.co/60x60/f5f5f5/333333?text=N/A'"
+                             style="width: 60px; height: 60px; object-fit: contain;"> 
+                    </div>
+                     <!-- Optional: If you want to show the name below the image matching the original design -->
+                    <div class="category-label" style="text-align: center; font-size: 12px; margin-top: 5px; color: #333; font-weight: 500;">
+                        <?php echo htmlspecialchars($category['name']); ?>
+                    </div>
+                </a>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <!-- Optional: Show placeholder or nothing if no categories found -->
+             <p style="text-align:center; padding: 20px; color: #777;">No categories found.</p>
+        <?php endif; ?>
     </div>
 </div>
