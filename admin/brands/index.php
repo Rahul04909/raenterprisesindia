@@ -144,8 +144,13 @@ try {
                             <tr>
                                 <td><?php echo $brand['id']; ?></td>
                                 <td>
-                                    <?php if($brand['image']): ?>
-                                        <img src="<?php echo htmlspecialchars($brand['image']); ?>" class="brand-image" alt="Brand Img">
+                                    <?php if($brand['image']): 
+                                        $imgSrc = $brand['image'];
+                                        if (strpos($imgSrc, 'http') !== 0) {
+                                            $imgSrc = '../../' . $imgSrc;
+                                        }
+                                    ?>
+                                        <img src="<?php echo htmlspecialchars($imgSrc); ?>" class="brand-image" alt="Brand Img">
                                     <?php else: ?>
                                         <div class="brand-image" style="display:flex;align-items:center;justify-content:center;color:#ccc;"><i class="fa-solid fa-image"></i></div>
                                     <?php endif; ?>
