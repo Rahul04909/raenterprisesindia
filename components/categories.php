@@ -26,10 +26,10 @@ $categories = [
                     -->
                     <img src="<?php echo $category['image']; ?>" 
                          alt="<?php echo str_replace("\n", " ", $category['label']); ?>"
+                         title="<?php echo str_replace("\n", " ", $category['label']); ?>"
                          onerror="this.src='https://placehold.co/60x60/f5f5f5/333333?text=<?php echo urlencode($category['placeholder_text']); ?>'"
                     >
                 </div>
-                <div class="category-label"><?php echo nl2br($category['label']); ?></div>
             </a>
         <?php endforeach; ?>
     </div>

@@ -1,8 +1,8 @@
 /* Categories Container */
 .categories-wrapper {
     background-color: #fff;
-    padding: 15px 0 10px;
-    /* SLightly more top padding */
+    padding: 8px 0;
+    /* Reduced padding */
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
     border-bottom: 1px solid #e0e0e0;
 }
@@ -17,7 +17,8 @@
     white-space: nowrap;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    gap: 15px;
+    gap: 10px;
+    /* Reduced gap */
 }
 
 .categories-container::-webkit-scrollbar {
@@ -30,28 +31,32 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding: 5px;
-    min-width: 90px;
+    padding: 0;
+    /* Removed padding */
+    min-width: auto;
+    /* Allow auto width */
     cursor: pointer;
     transition: transform 0.2s;
     text-decoration: none;
-    /* Ensure no underline */
 }
 
 .category-item:hover {
-    transform: translateY(-3px);
+    transform: translateY(-2px);
 }
 
 /* Image styling */
 .category-image {
-    width: 60px;
-    /* Slightly larger for images */
-    height: 60px;
-    margin-bottom: 8px;
+    width: 55px;
+    /* Slight reduction if desired, but 60 is fine. Let's make it 55 to be "thoda chota" */
+    height: 55px;
+    margin-bottom: 0;
+    /* No margin needed as no text */
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    border-radius: 4px;
+    /* Optional: adds a slight polish */
 }
 
 .category-image img {
@@ -62,39 +67,23 @@
     display: block;
 }
 
-/* Category Text */
-.category-label {
-    font-size: 13px;
-    font-weight: 500;
-    /* Regular weight, bold is too heavy */
-    line-height: 1.4;
-    color: #212121;
-    /* Darker black for better contrast */
-    font-family: inherit;
-}
-
-.category-item:hover .category-label {
-    color: var(--primary-color, #d32f2f);
-}
+/* Removed Category Text Styles */
 
 /* Responsive Adjustments */
 @media (max-width: 768px) {
     .categories-container {
         justify-content: flex-start;
-        padding-bottom: 10px;
-        gap: 12px;
+        padding-bottom: 0;
+        /* Tighten up */
+        gap: 15px;
     }
 
     .category-item {
-        min-width: 75px;
+        min-width: auto;
     }
 
     .category-image {
         width: 50px;
         height: 50px;
-    }
-
-    .category-label {
-        font-size: 11px;
     }
 }
