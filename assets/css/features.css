@@ -1,0 +1,113 @@
+/* Features/Trust Section */
+.features-section {
+    background-color: #fff;
+    padding: 30px 0;
+    margin-bottom: 20px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.features-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    /* Allow wrapping on mobile */
+}
+
+.feature-item {
+    display: flex;
+    align-items: flex-start;
+    width: 19%;
+    /* 5 items, approx 20% each */
+    padding-right: 15px;
+    box-sizing: border-box;
+    border-right: 1px solid #e0e0e0;
+    /* Vertical separator */
+}
+
+.feature-item:last-child {
+    border-right: none;
+    padding-right: 0;
+}
+
+.feature-icon {
+    font-size: 28px;
+    color: #d32f2f;
+    /* Red accent color */
+    margin-right: 15px;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.feature-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.feature-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.feature-desc {
+    font-size: 12px;
+    color: #666;
+    line-height: 1.5;
+}
+
+.feature-desc strong {
+    color: #333;
+    font-weight: 600;
+}
+
+/* WhatsApp specific styling */
+.feature-whatsapp {
+    color: #25D366;
+    /* WhatsApp Green */
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 2px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+    .feature-item {
+        width: 33.33%;
+        /* 3 items per row */
+        margin-bottom: 20px;
+        border-right: none;
+        /* Remove borders on tablet/mobile for cleaner look */
+    }
+}
+
+@media (max-width: 768px) {
+    .features-section {
+        padding: 20px 0;
+    }
+
+    .feature-item {
+        width: 100%;
+        /* Stack vertically on mobile */
+        margin-bottom: 20px;
+        padding-right: 0;
+        border-bottom: 1px solid #f0f0f0;
+        padding-bottom: 15px;
+    }
+
+    .feature-item:last-child {
+        margin-bottom: 0;
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+
+    .feature-icon {
+        font-size: 24px;
+    }
+}

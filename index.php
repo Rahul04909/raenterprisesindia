@@ -15,3 +15,7 @@
 <!-- Safety Section -->
 <link rel="stylesheet" href="assets/css/safety_section.css">
 <?php include 'components/safety_section.php'; ?>
+
+<!-- Features/Trust Section -->
+<link rel="stylesheet" href="assets/css/features.css">
+<?php include 'components/features.php'; ?>
