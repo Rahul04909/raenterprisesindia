@@ -301,13 +301,15 @@ body {
 }
 
 .menu-item-has-children>a {
-    justify-content: space-between;
-    /* Push chevron to right */
+    justify-content: flex-start;
+    /* Keep icon and text together */
 }
 
 .submenu-icon {
     font-size: 10px;
     transition: transform 0.2s;
+    margin-left: auto;
+    /* Push chevron to right */
 }
 
 .menu-item-has-children.open>a .submenu-icon {
