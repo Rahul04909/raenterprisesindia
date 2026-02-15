@@ -20,6 +20,10 @@
 <link rel="stylesheet" href="assets/css/features.css">
 <?php include 'components/features.php'; ?>
 
+<!-- Brands Section -->
+<link rel="stylesheet" href="assets/css/brands.css">
+<?php include 'components/brands.php'; ?>
+
 <!-- Footer -->
 <link rel="stylesheet" href="assets/css/footer.css">
 <?php include 'includes/footer.php'; ?>

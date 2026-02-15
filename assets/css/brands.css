@@ -1,0 +1,95 @@
+.brands-section {
+    padding: 30px 0;
+    background-color: #fff;
+    overflow: hidden;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+
+.brands-section .section-title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #333;
+    padding-left: 20px;
+    /* Align with container if needed */
+}
+
+/* Container for the ticker */
+.brands-ticker-wrapper {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    /* Optional mask to fade edges */
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+/* The moving track */
+.brands-ticker-track {
+    display: flex;
+    gap: 40px;
+    width: max-content;
+    animation: scrollBrands 30s linear infinite;
+}
+
+/* Stop animation on hover for better UX */
+.brands-ticker-track:hover {
+    animation-play-state: paused;
+}
+
+.brand-item {
+    flex: 0 0 auto;
+    width: 120px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    /* Maintain original colors, no grayscale */
+}
+
+.brand-item img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.brand-item:hover img {
+    transform: scale(1.1);
+}
+
+@keyframes scrollBrands {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        /* Move by half the width (since we duplicated the items) */
+        transform: translateX(-50%);
+    }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .brands-section {
+        padding: 20px 0;
+    }
+
+    .brands-section .section-title {
+        font-size: 20px;
+        padding-left: 15px;
+    }
+
+    .brands-ticker-track {
+        gap: 20px;
+        animation-duration: 20s;
+        /* Slightly faster feel on small screens or adjust as needed */
+    }
+
+    .brand-item {
+        width: 90px;
+        height: 60px;
+    }
+}
