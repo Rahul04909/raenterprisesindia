@@ -1,0 +1,5 @@
+{
+    "require": {
+        "summernote/summernote": "^0.8.8"
+    }
+}

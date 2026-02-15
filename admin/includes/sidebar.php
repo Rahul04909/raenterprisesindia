@@ -22,8 +22,8 @@
                 <span class="submenu-icon"><i class="fa-solid fa-chevron-right"></i></span>
             </a>
             <ul class="submenu">
-                <li><a href="#">All Products</a></li>
-                <li><a href="#">Add New</a></li>
+                <li><a href="<?php echo $adminBase; ?>/products/index.php" class="<?php echo strpos($_SERVER['REQUEST_URI'], '/products/index.php') !== false ? 'active' : ''; ?>">All Products</a></li>
+                <li><a href="<?php echo $adminBase; ?>/products/add.php" class="<?php echo strpos($_SERVER['REQUEST_URI'], '/products/add.php') !== false ? 'active' : ''; ?>">Add New</a></li>
                 <li><a href="<?php echo $adminBase; ?>/product-categories/index.php" class="<?php echo strpos($_SERVER['REQUEST_URI'], 'product-categories') !== false ? 'active' : ''; ?>">Categories</a></li>
                 <li><a href="<?php echo $adminBase; ?>/brands/index.php" class="<?php echo strpos($_SERVER['REQUEST_URI'], '/brands/') !== false ? 'active' : ''; ?>">Brands</a></li>
                 <li><a href="<?php echo $adminBase; ?>/brand-categories/index.php" class="<?php echo strpos($_SERVER['REQUEST_URI'], '/brand-categories/') !== false ? 'active' : ''; ?>">Brand Categories</a></li>
