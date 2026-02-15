@@ -1,9 +1,9 @@
 <?php
 // Database Configuration
 $host = 'localhost';
-$username = 'root';
-$password = '';
-$dbname = 'ra_enterprises_india';
+$username = 'jhdindus_moglix';
+$password = 'jhdindus_moglix';
+$dbname = 'Rd14072003@./';
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
