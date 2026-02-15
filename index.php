@@ -8,6 +8,10 @@
 <link rel="stylesheet" href="assets/css/hero.css">
 <?php include 'components/hero.php'; ?>
 
+<!-- Brands Section -->
+<link rel="stylesheet" href="assets/css/brands.css">
+<?php include 'components/brands.php'; ?>
+
 <!-- Bestsellers Section -->
 <link rel="stylesheet" href="assets/css/bestsellers.css">
 <?php include 'components/bestsellers.php'; ?>
@@ -20,9 +24,6 @@
 <link rel="stylesheet" href="assets/css/features.css">
 <?php include 'components/features.php'; ?>
 
-<!-- Brands Section -->
-<link rel="stylesheet" href="assets/css/brands.css">
-<?php include 'components/brands.php'; ?>
 
 <!-- Footer -->
 <link rel="stylesheet" href="assets/css/footer.css">
