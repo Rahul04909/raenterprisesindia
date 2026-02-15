@@ -47,7 +47,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } elseif (isset($_FILES['featured_image_file']) && $_FILES['featured_image_file']['error'] == 0) {
             $ext = pathinfo($_FILES['featured_image_file']['name'], PATHINFO_EXTENSION);
             $newName = 'prod-' . time() . '.' . $ext;
-            move_uploaded_file($_FILES['featured_image_file']['tmp_name'], '../../assets/uploads/products/' . $newName);
+            $uploadDir = '../../assets/uploads/products/';
+            if (!file_exists($uploadDir)) {
+                mkdir($uploadDir, 0777, true);
+            }
+            move_uploaded_file($_FILES['featured_image_file']['tmp_name'], $uploadDir . $newName);
             $featured_image = 'assets/uploads/products/' . $newName;
         }
 
@@ -55,7 +59,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($_FILES['brochure_file']) && $_FILES['brochure_file']['error'] == 0) {
              $ext = pathinfo($_FILES['brochure_file']['name'], PATHINFO_EXTENSION);
              $newName = 'brochure-' . time() . '.' . $ext;
-             move_uploaded_file($_FILES['brochure_file']['tmp_name'], '../../assets/uploads/brochures/' . $newName);
+             $brochureDir = '../../assets/uploads/brochures/';
+             if (!file_exists($brochureDir)) {
+                mkdir($brochureDir, 0777, true);
+             }
+             move_uploaded_file($_FILES['brochure_file']['tmp_name'], $brochureDir . $newName);
              $brochure_path = 'assets/uploads/brochures/' . $newName;
         }
 

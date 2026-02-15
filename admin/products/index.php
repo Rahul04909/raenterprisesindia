@@ -40,7 +40,7 @@ try {
     <link rel="stylesheet" href="../assets/css/admin.css">
     <style>
         .product-image {
-            width: 50px;
+            width: 80px;
             height: 50px;
             object-fit: contain;
             border: 1px solid #ddd;
