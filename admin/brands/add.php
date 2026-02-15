@@ -19,27 +19,65 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = trim($_POST['name']);
     $slug = trim($_POST['slug']);
     $description = trim($_POST['description']);
-    $image = trim($_POST['image']); 
+    
+    // Image Handling
+    $imagePath = '';
+    
+    // 1. Check for file upload
+    if (isset($_FILES['image_file']) && $_FILES['image_file']['error'] == 0) {
+        $allowed = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+        $filename = $_FILES['image_file']['name'];
+        $filetype = $_FILES['image_file']['type'];
+        $filesize = $_FILES['image_file']['size'];
+        $ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
 
-    if (empty($name) || empty($slug) || $category_id == 0) {
-        $error = "Name, Slug, and Category are required.";
-    } else {
-        try {
-            // Check for duplicate slug
-            $stmt = $pdo->prepare("SELECT COUNT(*) FROM brands WHERE slug = ?");
-            $stmt->execute([$slug]);
-            if ($stmt->fetchColumn() > 0) {
-                $error = "Slug already exists. Please choose another.";
-            } else {
-                $stmt = $pdo->prepare("INSERT INTO brands (category_id, name, slug, description, image) VALUES (?, ?, ?, ?, ?)");
-                if ($stmt->execute([$category_id, $name, $slug, $description, $image])) {
-                    $success = "Brand added successfully.";
-                } else {
-                    $error = "Failed to add brand.";
-                }
+        if (!in_array($ext, $allowed)) {
+             $error = "Invalid file type. Only JPG, PNG, GIF, and WebP are allowed.";
+        } elseif ($filesize > 2 * 1024 * 1024) { // 2MB limit
+             $error = "File size is too large. Max 2MB.";
+        } else {
+            // Generate unique name
+            $newFilename = $slug . '-' . time() . '.' . $ext;
+            $uploadDir = '../../assets/uploads/brands/';
+            
+            // Create dir if not exists (redundant check)
+            if (!file_exists($uploadDir)) {
+                mkdir($uploadDir, 0777, true);
             }
-        } catch(PDOException $e) {
-            $error = "Error: " . $e->getMessage();
+
+            if (move_uploaded_file($_FILES['image_file']['tmp_name'], $uploadDir . $newFilename)) {
+                $imagePath = 'assets/uploads/brands/' . $newFilename;
+            } else {
+                $error = "Failed to upload image.";
+            }
+        }
+    } 
+    // 2. Check for URL if no file uploaded/error
+    elseif (!empty($_POST['image_url'])) {
+        $imagePath = trim($_POST['image_url']);
+    }
+
+    if (empty($error)) {
+        if (empty($name) || empty($slug) || $category_id == 0) {
+            $error = "Name, Slug, and Category are required.";
+        } else {
+            try {
+                // Check for duplicate slug
+                $stmt = $pdo->prepare("SELECT COUNT(*) FROM brands WHERE slug = ?");
+                $stmt->execute([$slug]);
+                if ($stmt->fetchColumn() > 0) {
+                    $error = "Slug already exists. Please choose another.";
+                } else {
+                    $stmt = $pdo->prepare("INSERT INTO brands (category_id, name, slug, description, image) VALUES (?, ?, ?, ?, ?)");
+                    if ($stmt->execute([$category_id, $name, $slug, $description, $imagePath])) {
+                        $success = "Brand added successfully.";
+                    } else {
+                        $error = "Failed to add brand.";
+                    }
+                }
+            } catch(PDOException $e) {
+                $error = "Error: " . $e->getMessage();
+            }
         }
     }
 }
@@ -82,6 +120,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         .alert { padding: 10px; margin-bottom: 15px; border-left: 4px solid; }
         .alert-error { background: #fff; border-color: #d63638; }
         .alert-success { background: #fff; border-color: #00a32a; }
+        .divider-text {
+            text-align: center;
+            margin: 10px 0;
+            font-size: 12px;
+            color: #646970;
+            position: relative;
+        }
+        .divider-text::before, .divider-text::after {
+            content: "";
+            display: inline-block;
+            width: 30%;
+            height: 1px;
+            background: #dcdcde;
+            vertical-align: middle;
+            margin: 0 10px;
+        }
     </style>
 </head>
 <body>
@@ -96,7 +150,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <?php if($success): ?><div class="alert alert-success"><?php echo $success; ?> <a href="index.php">View All</a></div><?php endif; ?>
 
             <div class="form-container">
-                <form method="POST" action="">
+                <form method="POST" action="" enctype="multipart/form-data">
                     <div class="form-group">
                         <label>Category</label>
                         <select name="category_id" required>
@@ -115,10 +169,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <input type="text" name="slug" id="slug" required>
                         <small style="color:#646970; font-size:12px;">URL-friendly version.</small>
                     </div>
+                    
                     <div class="form-group">
-                        <label>Image URL</label>
-                        <input type="text" name="image" placeholder="https://example.com/image.jpg">
+                        <label>Brand Image (Upload)</label>
+                        <input type="file" name="image_file" accept="image/*">
                     </div>
+                    
+                    <div class="divider-text">OR</div>
+
+                    <div class="form-group">
+                        <label>Brand Image (URL)</label>
+                        <input type="text" name="image_url" placeholder="https://example.com/image.jpg">
+                    </div>
+
                     <div class="form-group">
                         <label>Description</label>
                         <textarea name="description" rows="4"></textarea>

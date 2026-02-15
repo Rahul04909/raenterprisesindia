@@ -30,32 +30,64 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = trim($_POST['name']);
     $slug = trim($_POST['slug']);
     $description = trim($_POST['description']);
-    $image = trim($_POST['image']);
+    $imagePath = $brand['image']; // Default to existing
 
-    if (empty($name) || empty($slug) || $category_id == 0) {
-        $error = "Name, Slug, and Category are required.";
-    } else {
-        try {
-            // Check for duplicate slug
-            $stmt = $pdo->prepare("SELECT COUNT(*) FROM brands WHERE slug = ? AND id != ?");
-            $stmt->execute([$slug, $id]);
-            if ($stmt->fetchColumn() > 0) {
-                $error = "Slug already exists.";
-            } else {
-                $stmt = $pdo->prepare("UPDATE brands SET category_id = ?, name = ?, slug = ?, description = ?, image = ? WHERE id = ?");
-                if ($stmt->execute([$category_id, $name, $slug, $description, $image, $id])) {
-                    $success = "Brand updated successfully.";
-                    $brand['category_id'] = $category_id;
-                    $brand['name'] = $name;
-                    $brand['slug'] = $slug;
-                    $brand['description'] = $description;
-                    $brand['image'] = $image;
-                } else {
-                    $error = "Failed to update brand.";
-                }
+    // Image Handling
+    if (isset($_FILES['image_file']) && $_FILES['image_file']['error'] == 0) {
+        $allowed = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+        $filename = $_FILES['image_file']['name'];
+        $filetype = $_FILES['image_file']['type'];
+        $filesize = $_FILES['image_file']['size'];
+        $ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+
+        if (!in_array($ext, $allowed)) {
+             $error = "Invalid file type.";
+        } elseif ($filesize > 2 * 1024 * 1024) {
+             $error = "File size is too large. Max 2MB.";
+        } else {
+            $newFilename = $slug . '-' . time() . '.' . $ext;
+            $uploadDir = '../../assets/uploads/brands/';
+            
+             if (!file_exists($uploadDir)) {
+                mkdir($uploadDir, 0777, true);
             }
-        } catch(PDOException $e) {
-            $error = "Error: " . $e->getMessage();
+
+            if (move_uploaded_file($_FILES['image_file']['tmp_name'], $uploadDir . $newFilename)) {
+                $imagePath = 'assets/uploads/brands/' . $newFilename;
+            } else {
+                $error = "Failed to upload image.";
+            }
+        }
+    } elseif (!empty($_POST['image_url'])) {
+        $imagePath = trim($_POST['image_url']);
+    }
+
+    if (empty($error)) {
+        if (empty($name) || empty($slug) || $category_id == 0) {
+            $error = "Name, Slug, and Category are required.";
+        } else {
+            try {
+                // Check for duplicate slug
+                $stmt = $pdo->prepare("SELECT COUNT(*) FROM brands WHERE slug = ? AND id != ?");
+                $stmt->execute([$slug, $id]);
+                if ($stmt->fetchColumn() > 0) {
+                    $error = "Slug already exists.";
+                } else {
+                    $stmt = $pdo->prepare("UPDATE brands SET category_id = ?, name = ?, slug = ?, description = ?, image = ? WHERE id = ?");
+                    if ($stmt->execute([$category_id, $name, $slug, $description, $imagePath, $id])) {
+                        $success = "Brand updated successfully.";
+                        $brand['category_id'] = $category_id;
+                        $brand['name'] = $name;
+                        $brand['slug'] = $slug;
+                        $brand['description'] = $description;
+                        $brand['image'] = $imagePath;
+                    } else {
+                        $error = "Failed to update brand.";
+                    }
+                }
+            } catch(PDOException $e) {
+                $error = "Error: " . $e->getMessage();
+            }
         }
     }
 }
@@ -98,6 +130,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         .alert { padding: 10px; margin-bottom: 15px; border-left: 4px solid; }
         .alert-error { background: #fff; border-color: #d63638; }
         .alert-success { background: #fff; border-color: #00a32a; }
+        .divider-text {
+            text-align: center;
+            margin: 10px 0;
+            font-size: 12px;
+            color: #646970;
+            position: relative;
+        }
+        .divider-text::before, .divider-text::after {
+            content: "";
+            display: inline-block;
+            width: 30%;
+            height: 1px;
+            background: #dcdcde;
+            vertical-align: middle;
+            margin: 0 10px;
+        }
+        .current-image {
+            margin-bottom: 10px;
+            display: block;
+        }
+        .current-image img {
+            max-width: 100px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 4px;
+        }
     </style>
 </head>
 <body>
@@ -112,7 +170,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <?php if($success): ?><div class="alert alert-success"><?php echo $success; ?> <a href="index.php">Back to Brands</a></div><?php endif; ?>
 
             <div class="form-container">
-                <form method="POST" action="">
+                <form method="POST" action="" enctype="multipart/form-data">
                     <div class="form-group">
                         <label>Category</label>
                         <select name="category_id" required>
@@ -132,10 +190,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <label>Slug</label>
                         <input type="text" name="slug" value="<?php echo htmlspecialchars($brand['slug']); ?>" required>
                     </div>
+                    
                     <div class="form-group">
-                        <label>Image URL</label>
-                        <input type="text" name="image" value="<?php echo htmlspecialchars($brand['image']); ?>">
+                        <label>Brand Image (Upload)</label>
+                        <?php if($brand['image']): ?>
+                            <div class="current-image">
+                                <?php 
+                                    $imgSrc = $brand['image'];
+                                    // Adjust path for display if it's a local upload
+                                    if(strpos($imgSrc, 'assets/uploads') !== false) {
+                                         $imgSrc = '../../' . $imgSrc;
+                                    }
+                                ?>
+                                <img src="<?php echo htmlspecialchars($imgSrc); ?>" alt="Current Image">
+                                <small style="display:block; color:#666;">Current Image</small>
+                            </div>
+                        <?php endif; ?>
+                        <input type="file" name="image_file" accept="image/*">
                     </div>
+                    
+                    <div class="divider-text">OR</div>
+
+                    <div class="form-group">
+                        <label>Brand Image (URL)</label>
+                        <input type="text" name="image_url" placeholder="https://example.com/image.jpg" value="<?php echo (strpos($brand['image'], 'http') === 0) ? htmlspecialchars($brand['image']) : ''; ?>">
+                    </div>
+
                     <div class="form-group">
                         <label>Description</label>
                         <textarea name="description" rows="4"><?php echo htmlspecialchars($brand['description']); ?></textarea>
