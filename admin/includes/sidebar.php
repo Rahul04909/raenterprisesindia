@@ -1,6 +1,6 @@
 <div class="admin-sidebar">
     <div class="sidebar-header">
-        <a href="index.php" class="sidebar-brand">
+        <a href="../index.php" class="sidebar-brand">
             <i class="fa-solid fa-gauge-high"></i>
             <span>RA Admin</span>
         </a>
@@ -8,13 +8,13 @@
     
     <ul class="sidebar-menu">
         <li>
-            <a href="index.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : ''; ?>">
+            <a href="../index.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'index.php' && strpos($_SERVER['REQUEST_URI'], 'product-categories') === false ? 'active' : ''; ?>">
                 <i class="fa-solid fa-gauge"></i>
                 <span>Dashboard</span>
             </a>
         </li>
         
-        <li class="menu-item-has-children">
+        <li class="menu-item-has-children <?php echo strpos($_SERVER['REQUEST_URI'], 'product-categories') !== false ? 'open' : ''; ?>">
             <a href="#">
                 <i class="fa-solid fa-box-open"></i>
                 <span>Products</span>
@@ -23,7 +23,7 @@
             <ul class="submenu">
                 <li><a href="#">All Products</a></li>
                 <li><a href="#">Add New</a></li>
-                <li><a href="#">Categories</a></li>
+                <li><a href="../product-categories/index.php" class="<?php echo strpos($_SERVER['REQUEST_URI'], 'product-categories') !== false ? 'active' : ''; ?>">Categories</a></li>
                 <li><a href="#">Tags</a></li>
             </ul>
         </li>
