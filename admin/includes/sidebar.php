@@ -25,6 +25,7 @@
                 <li><a href="#">All Products</a></li>
                 <li><a href="#">Add New</a></li>
                 <li><a href="<?php echo $adminBase; ?>/product-categories/index.php" class="<?php echo strpos($_SERVER['REQUEST_URI'], 'product-categories') !== false ? 'active' : ''; ?>">Categories</a></li>
+                <li><a href="<?php echo $adminBase; ?>/brands/index.php" class="<?php echo strpos($_SERVER['REQUEST_URI'], '/brands/') !== false ? 'active' : ''; ?>">Brands</a></li>
                 <li><a href="#">Tags</a></li>
             </ul>
         </li>
