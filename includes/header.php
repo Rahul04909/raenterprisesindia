@@ -18,7 +18,7 @@
         <!-- Logo Section -->
         <div class="logo-container">
             <a href="index.php" class="brand-logo">
-                <img src="assets/images/logo.png" alt="RA Enterprises" onerror="this.src='https://placehold.co/150x50?text=RA+Enterprises'">
+                <img src="assets/logo/logo.png" alt="RA Enterprises" onerror="this.src='https://placehold.co/150x50?text=RA+Enterprises'">
             </a>
             
             <div class="location-selector d-md-flex">
