@@ -11,3 +11,7 @@
 <!-- Bestsellers Section -->
 <link rel="stylesheet" href="assets/css/bestsellers.css">
 <?php include 'components/bestsellers.php'; ?>
+
+<!-- Safety Section -->
+<link rel="stylesheet" href="assets/css/safety_section.css">
+<?php include 'components/safety_section.php'; ?>
