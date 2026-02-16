@@ -58,16 +58,6 @@
 
     <!-- Bottom Footer -->
     <div class="footer-bottom">
-        <div class="footer-bottom-container">
-            <div class="copyright-text">
-                &copy; <?php echo date('Y'); ?> RA Enterprises. All Rights Reserved.
-            </div>
-            <div class="payment-methods">
-                <i class="fa-brands fa-cc-visa payment-icon"></i>
-                <i class="fa-brands fa-cc-mastercard payment-icon"></i>
-                <i class="fa-brands fa-cc-paypal payment-icon"></i>
-                <i class="fa-brands fa-google-pay payment-icon"></i>
-            </div>
         </div>
     </div>
 </footer>
