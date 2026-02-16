@@ -93,25 +93,56 @@
 
 @media (max-width: 768px) {
     .features-section {
-        padding: 20px 0;
+        padding: 15px 0;
+        border-bottom: 1px solid #eee;
+    }
+
+    .features-container {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        justify-content: flex-start;
+        padding-bottom: 10px; /* Space for scrollbar if visible */
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+        gap: 15px; /* Spacing between items */
+    }
+
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .features-container::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    .features-container {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
     }
 
     .feature-item {
-        width: 100%;
-        /* Stack vertically on mobile */
-        margin-bottom: 20px;
-        padding-right: 0;
-        border-bottom: 1px solid #f0f0f0;
-        padding-bottom: 15px;
-    }
-
-    .feature-item:last-child {
+        flex: 0 0 85%; /* Show one item almost fully with a peek at the next */
+        max-width: 85%;
         margin-bottom: 0;
+        border-right: 1px solid #f0f0f0; /* Restore separator */
         border-bottom: none;
+        padding: 0 15px;
+        scroll-snap-align: start;
         padding-bottom: 0;
     }
 
+    .feature-item:last-child {
+        border-right: none;
+    }
+
     .feature-icon {
-        font-size: 24px;
+        font-size: 22px;
+        margin-right: 10px;
+    }
+
+    .feature-title {
+        font-size: 13px;
+    }
+
+    .feature-desc {
+        font-size: 11px;
     }
 }

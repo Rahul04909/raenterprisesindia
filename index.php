@@ -17,8 +17,8 @@
 <?php include 'components/bestsellers.php'; ?>
 
 <!-- Safety Section -->
-<link rel="stylesheet" href="assets/css/safety_section.css">
-<?php include 'components/safety_section.php'; ?>
+<link rel="stylesheet" href="assets/css/category_wise_products.css">
+<?php include 'components/categoery-wise-products.php'; ?>
 
 <!-- Features/Trust Section -->
 <link rel="stylesheet" href="assets/css/features.css">
