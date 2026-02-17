@@ -216,4 +216,5 @@ function changeImage(el, src) {
 }
 </script>
 
+<link rel="stylesheet" href="assets/css/footer.css">
 <?php include 'includes/footer.php'; ?>

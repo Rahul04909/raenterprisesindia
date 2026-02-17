@@ -58,6 +58,10 @@
 
     <!-- Bottom Footer -->
     <div class="footer-bottom">
-        </div>
+        <p>&copy; <?php echo date('Y'); ?> RA Enterprises. All Rights Reserved.</p>
     </div>
 </footer>
+
+<!-- Mobile Bottom Navigation -->
+<link rel="stylesheet" href="assets/css/mobile_bottom_nav.css">
+<?php include __DIR__ . '/../components/mobile_bottom_nav.php'; ?>
