@@ -95,7 +95,10 @@ try {
                     <button class="action-btn btn-cart"><i class="fa-solid fa-cart-shopping"></i> Add to Cart</button>
                     <button class="action-btn btn-buy"><i class="fa-solid fa-bolt"></i> Buy Now</button>
                 <?php else: ?>
-                    <a href="https://wa.me/919999049135?text=I am interested in <?php echo urlencode($product['name']); ?>" target="_blank" class="action-btn btn-buy" style="background:#25D366;"><i class="fa-brands fa-whatsapp"></i> Enquire Now</a>
+                    <div style="display:flex; gap:10px; width:100%;">
+                        <a href="https://wa.me/919999049135?text=I am interested in <?php echo urlencode($product['name']); ?>" target="_blank" class="action-btn btn-buy" style="background:#25D366; flex:1;"><i class="fa-brands fa-whatsapp"></i> Enquire Now</a>
+                        <a href="mailto:support@raenterprises.com?subject=Quote Request for <?php echo urlencode($product['name']); ?>" class="action-btn btn-cart" style="background:#2874f0; flex:1;"><i class="fa-solid fa-envelope"></i> Get a Quote</a>
+                    </div>
                 <?php endif; ?>
             </div>
         </div>
@@ -203,6 +206,7 @@ try {
         <button class="action-btn btn-buy" style="flex:1;"><i class="fa-solid fa-bolt"></i> Buy Now</button>
     <?php else: ?>
         <a href="https://wa.me/919999049135?text=I am interested in <?php echo urlencode($product['name']); ?>" class="action-btn btn-buy" style="flex:1; background:#25D366;"><i class="fa-brands fa-whatsapp"></i> Enquire Now</a>
+        <a href="mailto:support@raenterprises.com?subject=Quote Request for <?php echo urlencode($product['name']); ?>" class="action-btn btn-cart" style="flex:1; background:#2874f0;"><i class="fa-solid fa-envelope"></i> Get a Quote</a>
     <?php endif; ?>
 </div>
 

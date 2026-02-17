@@ -104,10 +104,10 @@
     display: flex;
     gap: 10px;
     margin-top: 20px;
+    width: 100%;
 }
 
 .action-btn {
-    flex: 1;
     padding: 16px;
     font-size: 16px;
     font-weight: 600;
@@ -122,6 +122,7 @@
     justify-content: center;
     gap: 8px;
     text-decoration: none;
+    /* Remove fixed width if any, let flex handle it */
 }
 
 .btn-cart {
