@@ -12,10 +12,12 @@
     color: #878787;
     margin-bottom: 20px;
 }
+
 .breadcrumbs a {
     color: #878787;
     text-decoration: none;
 }
+
 .breadcrumbs a:hover {
     color: #2874f0;
 }
@@ -63,7 +65,8 @@
 }
 
 .main-image-frame:hover img {
-    transform: scale(1.2); /* Simple zoom effect */
+    transform: scale(1.2);
+    /* Simple zoom effect */
     cursor: zoom-in;
 }
 
@@ -84,7 +87,8 @@
     transition: all 0.2s;
 }
 
-.thumbnail-item:hover, .thumbnail-item.active {
+.thumbnail-item:hover,
+.thumbnail-item.active {
     border-color: #2874f0;
     opacity: 1;
 }
@@ -122,12 +126,12 @@
 
 .btn-cart {
     background: #ff9f00;
-    box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .2);
 }
 
 .btn-buy {
     background: #fb641b;
-    box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .2);
 }
 
 /* Right Column: Details */
@@ -191,8 +195,14 @@
     font-weight: 600;
     margin-bottom: 15px;
 }
-.in-stock { color: #388e3c; }
-.out-stock { color: #d32f2f; }
+
+.in-stock {
+    color: #388e3c;
+}
+
+.out-stock {
+    color: #d32f2f;
+}
 
 /* Info Table */
 .info-table {
@@ -200,15 +210,18 @@
     margin-bottom: 20px;
     border-collapse: collapse;
 }
+
 .info-table td {
     padding: 8px 0;
     font-size: 14px;
 }
+
 .label-col {
     color: #878787;
     width: 120px;
     vertical-align: top;
 }
+
 .value-col {
     color: #212121;
     font-weight: 500;
@@ -236,17 +249,48 @@
     color: #212121;
 }
 
+/* Ensure inserted tables look good */
+.section-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+}
+
+.section-content table td,
+.section-content table th {
+    padding: 10px;
+    border-bottom: 1px solid #f0f0f0;
+    text-align: left;
+}
+
+.section-content table tr:first-child td,
+.section-content table tr:first-child th {
+    /* Style headers if they exist */
+    font-weight: 600;
+    color: #333;
+}
+
+.section-content table td:first-child {
+    color: #878787;
+    width: 30%;
+    font-weight: 500;
+}
+
 .spec-table {
     width: 100%;
     border-collapse: collapse;
 }
+
 .spec-table tr {
     border-bottom: 1px solid #f0f0f0;
 }
-.spec-table th, .spec-table td {
+
+.spec-table th,
+.spec-table td {
     padding: 10px;
     text-align: left;
 }
+
 .spec-table th {
     color: #878787;
     width: 30%;
@@ -255,15 +299,19 @@
 
 /* Mobile Sticky Footer */
 .mobile-sticky-actions {
-    display: none; /* Desktop hidden */
+    display: none;
+    /* Desktop hidden */
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
-    z-index: 999; /* Above normal footer, below modal overlays */
-    box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+    z-index: 999;
+    /* Above normal footer, below modal overlays */
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
 }
-.mobile-sticky-actions .btn-cart, .mobile-sticky-actions .btn-buy {
+
+.mobile-sticky-actions .btn-cart,
+.mobile-sticky-actions .btn-buy {
     border-radius: 0;
     padding: 15px 0;
 }
@@ -287,11 +335,11 @@
         height: 350px;
         border: none;
     }
-    
+
     .product-info-col {
         padding: 20px 15px;
     }
-    
+
     .product-actions-desktop {
         display: none;
     }
@@ -299,20 +347,14 @@
     .mobile-sticky-actions {
         display: flex;
     }
-    
+
     /* Make space for sticky footer */
     body {
         padding-bottom: 60px;
     }
-    
-    /* Hide bottom nav if we are on product details page? 
-       Actually user might want bottom nav. 
-       Let's put Sticky Actions ABOVE bottom nav or replace it.
-       Usually Product Details replaces bottom nav with Buy buttons.
-       We will use z-index to overlay.
-    */
+
     .mobile-bottom-nav {
-        display: none !important; /* Hide standard nav on this page preference */
-        /* Or keep it and push actions up? No, standard is replace. */
+        /* Hide global nav if present on this page, or ensure actions verify visibility */
+        display: none !important;
     }
 }

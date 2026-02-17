@@ -161,7 +161,7 @@ try {
             <div class="details-section">
                 <div class="section-header">Product Description</div>
                 <div class="section-content">
-                    <?php echo $product['description']; // HTML allowed from summernote ?>
+                    <?php echo html_entity_decode($product['description']); // Decode HTML content ?>
                 </div>
             </div>
             <?php endif; ?>
@@ -171,7 +171,7 @@ try {
             <div class="details-section">
                 <div class="section-header">Specifications</div>
                 <div class="section-content">
-                    <?php echo $product['specifications']; // HTML Table from summernote ?>
+                    <?php echo html_entity_decode($product['specifications']); // Decode HTML Table ?>
                 </div>
             </div>
             <?php endif; ?>
