@@ -241,3 +241,76 @@
         padding: 10px;
     }
 }
+
+/* Rating Badge Styling */
+.rating-badge {
+    background-color: #388e3c;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    width: fit-content;
+    /* Ensure it doesn't take full width */
+    margin-bottom: 5px;
+}
+
+.rating-badge i {
+    font-size: 10px;
+}
+
+/* Navigation Buttons */
+.safety-scroll-wrapper {
+    position: relative;
+}
+
+.safety-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 80px;
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    border: none;
+    outline: none;
+    transition: background-color 0.2s;
+    border-radius: 4px;
+    /* Optional rounded */
+}
+
+.safety-nav-btn:hover {
+    background-color: #fff;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
+}
+
+.safety-nav-btn.prev-btn {
+    left: 0;
+    border-radius: 0 4px 4px 0;
+}
+
+.safety-nav-btn.next-btn {
+    right: 0;
+    border-radius: 4px 0 0 4px;
+}
+
+.safety-nav-btn i {
+    font-size: 24px;
+    color: #212121;
+}
+
+/* Hide on mobile/touch if preferred, or maintain for ease */
+@media (max-width: 768px) {
+    .safety-nav-btn {
+        display: none;
+        /* Usually hide arrows on mobile where touch scroll is natural */
+    }
+}

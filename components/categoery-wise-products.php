@@ -116,45 +116,65 @@ try {
             </div>
 
             <!-- Bottom Row: Products Slider -->
-            <div class="safety-products-container">
-                <?php foreach ($products as $product): ?>
-                    <a href="product-details.php?slug=<?php echo $product['slug']; ?>" class="safety-product-card">
-                        <div class="product-image">
-                            <?php 
-                                $pImg = $product['featured_image'];
-                                if(empty($pImg)) $pImg = "https://placehold.co/150x150/eee/333?text=Product";
-                            ?>
-                            <img src="<?php echo htmlspecialchars($pImg); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>">
-                        </div>
-                        
-                        <!-- Rating Mockup (since we might not have reviews table populated yet, but checks schema) -->
-                         <!-- Schema has product_reviews table, but complexity to join. Using static/mock for rating if not available or fetch average -->
-                        <div class="rating-badge">
-                            4.5 <i class="fa-solid fa-star"></i>
-                        </div>
-                        <span class="review-count" style="font-size:11px; color:#878787;">(0 Reviews)</span>
-                        
-                        <h3 class="product-title" title="<?php echo htmlspecialchars($product['name']); ?>">
-                            <?php echo htmlspecialchars($product['name']); ?>
-                        </h3>
-                        
-                        <div class="price-block">
-                             <?php if ($product['sales_price']): ?>
-                                <span class="current-price">₹<?php echo number_format($product['sales_price']); ?></span>
-                                <?php if ($product['mrp'] > $product['sales_price']): ?>
-                                    <span class="original-price">₹<?php echo number_format($product['mrp']); ?></span>
-                                    <?php 
-                                        $discount = round((($product['mrp'] - $product['sales_price']) / $product['mrp']) * 100);
-                                    ?>
-                                    <span class="discount-text"><?php echo $discount; ?>% OFF</span>
+            <div class="safety-scroll-wrapper">
+                <button class="safety-nav-btn prev-btn" onclick="scrollSafety(this, -1)"><i class="fa-solid fa-angle-left"></i></button>
+                <div class="safety-products-container">
+                    <?php foreach ($products as $product): ?>
+                        <a href="product-details.php?slug=<?php echo $product['slug']; ?>" class="safety-product-card">
+                            <div class="product-image">
+                                <?php 
+                                    $pImg = $product['featured_image'];
+                                    if(empty($pImg)) $pImg = "https://placehold.co/150x150/eee/333?text=Product";
+                                ?>
+                                <img src="<?php echo htmlspecialchars($pImg); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>">
+                            </div>
+                            
+                            <!-- Rating Mockup -->
+                            <div class="rating-badge">
+                                4.5 <i class="fa-solid fa-star"></i>
+                            </div>
+                            <span class="review-count" style="font-size:11px; color:#878787;">(0 Reviews)</span>
+                            
+                            <h3 class="product-title" title="<?php echo htmlspecialchars($product['name']); ?>">
+                                <?php echo htmlspecialchars($product['name']); ?>
+                            </h3>
+                            
+                            <div class="price-block">
+                                 <?php if ($product['sales_price']): ?>
+                                    <span class="current-price">₹<?php echo number_format($product['sales_price']); ?></span>
+                                    <?php if ($product['mrp'] > $product['sales_price']): ?>
+                                        <span class="original-price">₹<?php echo number_format($product['mrp']); ?></span>
+                                        <?php 
+                                            $discount = round((($product['mrp'] - $product['sales_price']) / $product['mrp']) * 100);
+                                        ?>
+                                        <span class="discount-text"><?php echo $discount; ?>% OFF</span>
+                                    <?php endif; ?>
+                                <?php else: ?>
+                                    <span class="current-price">Price on Request</span>
                                 <?php endif; ?>
-                            <?php else: ?>
-                                <span class="current-price">Price on Request</span>
-                            <?php endif; ?>
-                        </div>
-                    </a>
-                <?php endforeach; ?>
+                            </div>
+                        </a>
+                    <?php endforeach; ?>
+
+
+                </div>
+
+                <button class="safety-nav-btn next-btn" onclick="scrollSafety(this, 1)"><i class="fa-solid fa-angle-right"></i></button>
             </div>
         </div>
     </div>
 <?php endforeach; ?>
+
+<script>
+function scrollSafety(btn, direction) {
+    const wrapper = btn.closest('.safety-scroll-wrapper');
+    const container = wrapper.querySelector('.safety-products-container');
+    const scrollAmount = 300; 
+    
+    if (direction === 1) {
+        container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    } else {
+        container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    }
+}
+</script>
