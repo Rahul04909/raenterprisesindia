@@ -318,7 +318,7 @@ try {
                         ?>
                         <img src="<?php echo htmlspecialchars($rpImg); ?>" alt="<?php echo htmlspecialchars($rp['name']); ?>" style="max-width:100%; max-height:100%; object-fit:contain;">
                     </div>
-                    <div style="font-size:13px; font-weight:500; height:36px; overflow:hidden; margin-bottom:5px;" title="<?php echo htmlspecialchars($rp['name']); ?>">
+                    <div class="related-product-title" title="<?php echo htmlspecialchars($rp['name']); ?>">
                         <?php echo htmlspecialchars($rp['name']); ?>
                     </div>
                     <div style="color:#388e3c; font-size:12px;">Recently Added</div>
