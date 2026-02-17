@@ -27,7 +27,7 @@
                 <li><a href="<?php echo $adminBase; ?>/product-categories/index.php" class="<?php echo strpos($_SERVER['REQUEST_URI'], 'product-categories') !== false ? 'active' : ''; ?>">Categories</a></li>
                 <li><a href="<?php echo $adminBase; ?>/brands/index.php" class="<?php echo strpos($_SERVER['REQUEST_URI'], '/brands/') !== false ? 'active' : ''; ?>">Brands</a></li>
                 <li><a href="<?php echo $adminBase; ?>/brand-categories/index.php" class="<?php echo strpos($_SERVER['REQUEST_URI'], '/brand-categories/') !== false ? 'active' : ''; ?>">Brand Categories</a></li>
-                <li><a href="#">Tags</a></li>
+                <li><a href="<?php echo $adminBase; ?>/best-sellers/best-seller-products.php" class="<?php echo strpos($_SERVER['REQUEST_URI'], '/best-sellers/') !== false ? 'active' : ''; ?>">Best Sellers</a></li>
             </ul>
         </li>
 
