@@ -46,6 +46,47 @@ try {
         $discount = round((($product['mrp'] - $product['sales_price']) / $product['mrp']) * 100);
     }
 
+    // Handle Review Submission
+    $review_msg = '';
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_review'])) {
+        $r_name = trim($_POST['reviewer_name']);
+        $r_email = trim($_POST['reviewer_email']);
+        $r_rating = (int)$_POST['rating'];
+        $r_text = trim($_POST['review_text']);
+        
+        if ($r_rating < 1 || $r_rating > 5) {
+            $review_msg = "<div style='color:red; margin-bottom:10px;'>Please select a valid rating (1-5 stars).</div>";
+        } else {
+            $stmtInsert = $pdo->prepare("INSERT INTO product_reviews (product_id, user_name, user_email, rating, review, status) VALUES (?, ?, ?, ?, ?, 'pending')");
+            if ($stmtInsert->execute([$product['id'], $r_name, $r_email, $r_rating, $r_text])) {
+                $review_msg = "<div style='color:green; margin-bottom:10px;'>Thank you! Your review has been submitted for approval.</div>";
+            } else {
+                $review_msg = "<div style='color:red; margin-bottom:10px;'>Error submitting review. Please try again.</div>";
+            }
+        }
+    }
+
+    // Fetch Reviews (Approved Only)
+    $stmtReviews = $pdo->prepare("SELECT * FROM product_reviews WHERE product_id = ? AND status = 'approved' ORDER BY created_at DESC");
+    $stmtReviews->execute([$product['id']]);
+    $reviews = $stmtReviews->fetchAll();
+    
+    $avgRating = 0;
+    $totalReviews = count($reviews);
+    if ($totalReviews > 0) {
+        $sum = 0;
+        foreach ($reviews as $r) $sum += $r['rating'];
+        $avgRating = round($sum / $totalReviews, 1);
+    }
+
+    // Fetch Related Products (Same Category, exclude current)
+    $relatedProducts = [];
+    if ($product['category_id']) {
+        $stmtRelated = $pdo->prepare("SELECT * FROM products WHERE category_id = ? AND id != ? AND status = 'published' LIMIT 4");
+        $stmtRelated->execute([$product['category_id'], $product['id']]);
+        $relatedProducts = $stmtRelated->fetchAll();
+    }
+
 } catch (PDOException $e) {
     die("Error: " . $e->getMessage());
 }
@@ -109,9 +150,9 @@ try {
             
             <div style="margin-bottom:10px;">
                 <div class="product-rating-box">
-                    4.5 <i class="fa-solid fa-star" style="font-size:10px;"></i>
+                    <?php echo $avgRating > 0 ? $avgRating : 'N/A'; ?> <i class="fa-solid fa-star" style="font-size:10px;"></i>
                 </div>
-                <span class="product-reviews-count">12 Ratings & 2 Reviews</span>
+                <span class="product-reviews-count"><?php echo $totalReviews; ?> Ratings & Reviews</span>
             </div>
 
             <?php if ($hasPrice): ?>
@@ -194,10 +235,116 @@ try {
         </div>
     </div>
     
-    <!-- Related Products Placeholder -->
-    <!-- Logic to be added later or now if part of scope. For now, we have "Category Wise Products" which serves similar purpose on homepage. Here we could reuse that logic or specific related products. -->
+    <!-- Reviews Section -->
+    <div class="details-section" id="reviews-section">
+        <div class="section-header">Ratings & Reviews</div>
+        <div class="section-content">
+            <?php if (!empty($review_msg)) echo $review_msg; ?>
+            
+            <div class="reviews-container" style="display:flex; flex-wrap:wrap; gap:30px;">
+                <!-- Summary -->
+                <div class="rating-summary" style="flex:1; min-width:250px;">
+                    <div style="font-size:48px; font-weight:bold; display:flex; align-items:center;">
+                        <?php echo $avgRating; ?> <i class="fa-solid fa-star" style="font-size:24px; color:#388e3c; margin-left:10px;"></i>
+                    </div>
+                    <div style="color:#878787; margin-bottom:20px;"><?php echo $totalReviews; ?> Verified Ratings</div>
+                    
+                    <button class="action-btn" style="background:#fff; color:#2874f0; border:1px solid #2874f0; box-shadow:none; width:100%;" onclick="toggleReviewForm()">Rate Product</button>
+                    
+                    <!-- Review Form -->
+                    <div id="review-form-container" style="display:none; margin-top:20px; border-top:1px solid #eee; padding-top:20px;">
+                        <form method="POST" action="">
+                            <div style="margin-bottom:10px;">
+                                <label style="display:block; font-size:13px; margin-bottom:5px;">Your Name</label>
+                                <input type="text" name="reviewer_name" required style="width:100%; padding:8px; border:1px solid #ddd;">
+                            </div>
+                            <div style="margin-bottom:10px;">
+                                <label style="display:block; font-size:13px; margin-bottom:5px;">Email (Optional)</label>
+                                <input type="email" name="reviewer_email" style="width:100%; padding:8px; border:1px solid #ddd;">
+                            </div>
+                            <div style="margin-bottom:10px;">
+                                <label style="display:block; font-size:13px; margin-bottom:5px;">Rating</label>
+                                <select name="rating" required style="width:100%; padding:8px; border:1px solid #ddd;">
+                                    <option value="5">5 Stars - Excellent</option>
+                                    <option value="4">4 Stars - Very Good</option>
+                                    <option value="3">3 Stars - Good</option>
+                                    <option value="2">2 Stars - Fair</option>
+                                    <option value="1">1 Star - Poor</option>
+                                </select>
+                            </div>
+                            <div style="margin-bottom:10px;">
+                                <label style="display:block; font-size:13px; margin-bottom:5px;">Review</label>
+                                <textarea name="review_text" rows="3" required style="width:100%; padding:8px; border:1px solid #ddd;"></textarea>
+                            </div>
+                            <button type="submit" name="submit_review" class="action-btn" style="background:#fb641b; font-size:14px; padding:10px;">Submit Review</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Reviews List -->
+                <div class="reviews-list" style="flex:2; min-width:300px;">
+                    <?php if (count($reviews) > 0): ?>
+                        <?php foreach ($reviews as $r): ?>
+                            <div class="review-item" style="border-bottom:1px solid #f0f0f0; padding-bottom:15px; margin-bottom:15px;">
+                                <div style="display:flex; align-items:center; gap:10px; margin-bottom:5px;">
+                                    <div class="product-rating-box" style="font-size:11px; padding:1px 4px;"><?php echo $r['rating']; ?> <i class="fa-solid fa-star"></i></div>
+                                    <span style="font-weight:600; font-size:14px;"><?php echo htmlspecialchars($r['review']); ?></span>
+                                </div>
+                                <div style="color:#878787; font-size:12px;">
+                                    <?php echo htmlspecialchars($r['user_name']); ?> 
+                                    <i class="fa-solid fa-circle-check" style="font-size:10px; color:#878787;"></i> 
+                                    Certified Buyer, <?php echo date('M, Y', strtotime($r['created_at'])); ?>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <div style="color:#878787;">No reviews yet. Be the first to review!</div>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Related Products -->
+    <?php if (count($relatedProducts) > 0): ?>
+    <div style="margin-top:20px; background:#fff; padding:15px; border:1px solid #f0f0f0;"> <!-- Using inline style for section container just to keep it distinct from details-section class logic if needed, but cleaner to use class -->
+        <h2 style="font-size:20px; font-weight:600; margin-bottom:15px;">Check These Out Too</h2>
+        <div class="related-products-grid" style="display:flex; gap:15px; overflow-x:auto; padding-bottom:10px;">
+            <?php foreach ($relatedProducts as $rp): ?>
+                <a href="product-details.php?slug=<?php echo $rp['slug']; ?>" class="related-card" style="min-width:180px; max-width:180px; text-decoration:none; color:inherit; border:1px solid #f0f0f0; padding:10px; transition:box-shadow 0.2s;">
+                    <div style="height:150px; display:flex; align-items:center; justify-content:center; margin-bottom:10px;">
+                        <?php 
+                            $rpImg = $rp['featured_image'] ? $rp['featured_image'] : 'https://placehold.co/150x150?text=Product';
+                        ?>
+                        <img src="<?php echo htmlspecialchars($rpImg); ?>" alt="<?php echo htmlspecialchars($rp['name']); ?>" style="max-width:100%; max-height:100%; object-fit:contain;">
+                    </div>
+                    <div style="font-size:13px; font-weight:500; height:36px; overflow:hidden; margin-bottom:5px;" title="<?php echo htmlspecialchars($rp['name']); ?>">
+                        <?php echo htmlspecialchars($rp['name']); ?>
+                    </div>
+                    <div style="color:#388e3c; font-size:12px;">Recently Added</div>
+                     <?php if ($rp['is_price_enabled'] && $rp['sales_price']): ?>
+                        <div style="font-weight:600; font-size:15px; margin-top:5px;">₹<?php echo number_format($rp['sales_price']); ?></div>
+                    <?php else: ?>
+                        <div style="color:#d32f2f; font-size:13px; margin-top:5px;">Price on Request</div>
+                    <?php endif; ?>
+                </a>
+            <?php endforeach; ?>
+        </div>
+    </div>
+    <?php endif; ?>
 
 </div>
+
+<script>
+function toggleReviewForm() {
+    var form = document.getElementById('review-form-container');
+    if (form.style.display === 'none') {
+        form.style.display = 'block';
+    } else {
+        form.style.display = 'none';
+    }
+}
+</script>
 
 <!-- Mobile Sticky Actions -->
 <div class="mobile-sticky-actions">
