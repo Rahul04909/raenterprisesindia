@@ -1,81 +1,38 @@
 <?php
-// Dummy data for bestsellers
-$bestsellers = [
-    [
-        'title' => 'CyberNautt V4K 4MP Dual Lens Full HD Smart Wi-Fi Camera',
-        'image' => 'https://placehold.co/150x150?text=Camera', 
-        'rating' => 4.8,
-        'reviews' => 148,
-        'price' => 1449,
-        'mrp' => 3999,
-        'discount' => 63
-    ],
-    [
-        'title' => 'Abbott FreeStyle Libre Glucometer Sensor',
-        'image' => 'https://placehold.co/150x150?text=Sensor',
-        'rating' => 4.9,
-        'reviews' => 67,
-        'price' => 4049,
-        'mrp' => 5249,
-        'discount' => 22
-    ],
-    [
-        'title' => 'FAB 1 Sqmm Single Core Red FR PVC Copper Wire',
-        'image' => 'https://placehold.co/150x150?text=Wire',
-        'rating' => 4.7,
-        'reviews' => 218,
-        'price' => 469,
-        'mrp' => 1600,
-        'discount' => 70
-    ],
-    [
-        'title' => 'Jakmister 18000rpm 950W Silver Heavy Duty Blower',
-        'image' => 'https://placehold.co/150x150?text=Blower',
-        'rating' => 4.8,
-        'reviews' => 48,
-        'price' => 1069,
-        'mrp' => 4000,
-        'discount' => 73
-    ],
-    [
-        'title' => 'Aplus 12 Litre Hand Operating Milking Machine',
-        'image' => 'https://placehold.co/150x150?text=Milking+Machine',
-        'rating' => 4.7,
-        'reviews' => 48,
-        'price' => 5669,
-        'mrp' => 10000,
-        'discount' => 43
-    ],
-    [
-        'title' => 'Longway 25L Grey Water Storage Geyser',
-        'image' => 'https://placehold.co/150x150?text=Geyser',
-        'rating' => 4.8,
-        'reviews' => 85,
-        'price' => 3599,
-        'mrp' => 8669,
-        'discount' => 58
-    ],
-    [
-        'title' => 'Hillgrove 4 Pcs 2000W 7kg Copper Winding',
-        'image' => 'https://placehold.co/150x150?text=Tools',
-        'rating' => 4.7,
-        'reviews' => 7,
-        'price' => 3649,
-        'mrp' => 10809,
-        'discount' => 66
-    ],
-    [
-        'title' => 'CabONE 2.5 Sqmm FR PVC Multi Strand Wire',
-        'image' => 'https://placehold.co/150x150?text=Cable',
-        'rating' => 4.7,
-        'reviews' => 60,
-        'price' => 969,
-        'mrp' => 2690,
-        'discount' => 63
-    ]
-];
+// Ensure DB connection
+require_once __DIR__ . '/../database/db_config.php';
+
+try {
+    // 1. Fetch Categories marked as "Best Seller"
+    $stmtCats = $pdo->query("SELECT id FROM categories WHERE is_best_seller = 1");
+    $catIds = $stmtCats->fetchAll(PDO::FETCH_COLUMN);
+
+    if (empty($catIds)) {
+        // Fallback: If no categories selected, maybe show top rated products overall?
+        // Or just hide the section. Let's show top rated overall for now.
+        $sql = "SELECT * FROM products WHERE status = 'published' ORDER BY created_at DESC LIMIT 8"; // Or order by views/sales if available
+        $stmt = $pdo->query($sql);
+    } else {
+        // 2. Fetch Products from these categories
+        $inQuery = implode(',', array_fill(0, count($catIds), '?'));
+        $sql = "SELECT * FROM products 
+                WHERE category_id IN ($inQuery) 
+                AND status = 'published' 
+                ORDER BY id DESC 
+                LIMIT 8"; // Adjust limit as needed
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute($catIds);
+    }
+    
+    $bestsellers = $stmt->fetchAll();
+
+} catch (PDOException $e) {
+    // echo "Error: " . $e->getMessage();
+    $bestsellers = [];
+}
 ?>
 
+<?php if (count($bestsellers) > 0): ?>
 <div class="bestsellers-section">
     <div class="bestsellers-header">
         <h2 class="bestsellers-title">Bestsellers</h2>
@@ -83,26 +40,39 @@ $bestsellers = [
     
     <div class="bestsellers-container">
         <?php foreach ($bestsellers as $product): ?>
-            <a href="#" class="product-card">
+            <a href="product-details.php?slug=<?php echo $product['slug']; ?>" class="product-card">
                 <div class="product-image">
-                    <img src="<?php echo $product['image']; ?>" alt="<?php echo htmlspecialchars($product['title']); ?>">
+                    <?php 
+                        $img = $product['featured_image'] ? $product['featured_image'] : 'https://placehold.co/150x150?text=Product';
+                    ?>
+                    <img src="<?php echo htmlspecialchars($img); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>">
                 </div>
                 
                 <div class="rating-badge">
-                    <?php echo $product['rating']; ?> <i class="fa-solid fa-star"></i>
+                    4.5 <i class="fa-solid fa-star"></i>
                 </div>
-                <span class="review-count">(<?php echo $product['reviews']; ?> Reviews)</span>
+                <span class="review-count">(0 Reviews)</span>
                 
-                <h3 class="product-title" title="<?php echo htmlspecialchars($product['title']); ?>">
-                    <?php echo htmlspecialchars($product['title']); ?>
+                <h3 class="product-title" title="<?php echo htmlspecialchars($product['name']); ?>">
+                    <?php echo htmlspecialchars($product['name']); ?>
                 </h3>
                 
                 <div class="price-block">
-                    <span class="current-price">₹<?php echo number_format($product['price']); ?></span>
-                    <span class="original-price">₹<?php echo number_format($product['mrp']); ?></span>
-                    <span class="discount-text"><?php echo $product['discount']; ?>% OFF</span>
+                    <?php if ($product['is_price_enabled'] && $product['sales_price']): ?>
+                        <span class="current-price">₹<?php echo number_format($product['sales_price']); ?></span>
+                        <?php if ($product['mrp'] > $product['sales_price']): ?>
+                            <span class="original-price">₹<?php echo number_format($product['mrp']); ?></span>
+                            <?php 
+                                $discount = round((($product['mrp'] - $product['sales_price']) / $product['mrp']) * 100);
+                            ?>
+                            <span class="discount-text"><?php echo $discount; ?>% OFF</span>
+                        <?php endif; ?>
+                    <?php else: ?>
+                        <span class="current-price" style="color:#d32f2f; font-size:14px;">Price on Request</span>
+                    <?php endif; ?>
                 </div>
             </a>
         <?php endforeach; ?>
     </div>
 </div>
+<?php endif; ?>
