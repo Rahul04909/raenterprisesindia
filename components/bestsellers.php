@@ -38,41 +38,61 @@ try {
         <h2 class="bestsellers-title">Bestsellers</h2>
     </div>
     
-    <div class="bestsellers-container">
-        <?php foreach ($bestsellers as $product): ?>
-            <a href="product-details.php?slug=<?php echo $product['slug']; ?>" class="product-card">
-                <div class="product-image">
-                    <?php 
-                        $img = $product['featured_image'] ? $product['featured_image'] : 'https://placehold.co/150x150?text=Product';
-                    ?>
-                    <img src="<?php echo htmlspecialchars($img); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>">
-                </div>
-                
-                <div class="rating-badge">
-                    4.5 <i class="fa-solid fa-star"></i>
-                </div>
-                <span class="review-count">(0 Reviews)</span>
-                
-                <h3 class="product-title" title="<?php echo htmlspecialchars($product['name']); ?>">
-                    <?php echo htmlspecialchars($product['name']); ?>
-                </h3>
-                
-                <div class="price-block">
-                    <?php if ($product['is_price_enabled'] && $product['sales_price']): ?>
-                        <span class="current-price">₹<?php echo number_format($product['sales_price']); ?></span>
-                        <?php if ($product['mrp'] > $product['sales_price']): ?>
-                            <span class="original-price">₹<?php echo number_format($product['mrp']); ?></span>
-                            <?php 
-                                $discount = round((($product['mrp'] - $product['sales_price']) / $product['mrp']) * 100);
-                            ?>
-                            <span class="discount-text"><?php echo $discount; ?>% OFF</span>
+    <div class="bestsellers-scroll-wrapper">
+        <button class="bestsellers-nav-btn prev-btn" onclick="scrollBestsellers(this, -1)"><i class="fa-solid fa-angle-left"></i></button>
+        
+        <div class="bestsellers-container">
+            <?php foreach ($bestsellers as $product): ?>
+                <a href="product-details.php?slug=<?php echo $product['slug']; ?>" class="product-card">
+                    <div class="product-image">
+                        <?php 
+                            $img = $product['featured_image'] ? $product['featured_image'] : 'https://placehold.co/150x150?text=Product';
+                        ?>
+                        <img src="<?php echo htmlspecialchars($img); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>">
+                    </div>
+                    
+                    <div class="rating-badge">
+                        4.5 <i class="fa-solid fa-star"></i>
+                    </div>
+                    <span class="review-count" style="font-size:11px; color:#878787;">(0 Reviews)</span>
+                    
+                    <h3 class="product-title" title="<?php echo htmlspecialchars($product['name']); ?>">
+                        <?php echo htmlspecialchars($product['name']); ?>
+                    </h3>
+                    
+                    <div class="price-block">
+                        <?php if ($product['is_price_enabled'] && $product['sales_price']): ?>
+                            <span class="current-price">₹<?php echo number_format($product['sales_price']); ?></span>
+                            <?php if ($product['mrp'] > $product['sales_price']): ?>
+                                <span class="original-price">₹<?php echo number_format($product['mrp']); ?></span>
+                                <?php 
+                                    $discount = round((($product['mrp'] - $product['sales_price']) / $product['mrp']) * 100);
+                                ?>
+                                <span class="discount-text"><?php echo $discount; ?>% OFF</span>
+                            <?php endif; ?>
+                        <?php else: ?>
+                            <span class="current-price" style="color:#d32f2f; font-size:14px;">Price on Request</span>
                         <?php endif; ?>
-                    <?php else: ?>
-                        <span class="current-price" style="color:#d32f2f; font-size:14px;">Price on Request</span>
-                    <?php endif; ?>
-                </div>
-            </a>
-        <?php endforeach; ?>
+                    </div>
+                </a>
+            <?php endforeach; ?>
+        </div>
+        
+        <button class="bestsellers-nav-btn next-btn" onclick="scrollBestsellers(this, 1)"><i class="fa-solid fa-angle-right"></i></button>
     </div>
 </div>
+
+<script>
+function scrollBestsellers(btn, direction) {
+    const wrapper = btn.closest('.bestsellers-scroll-wrapper');
+    const container = wrapper.querySelector('.bestsellers-container');
+    const scrollAmount = 300; 
+    
+    if (direction === 1) {
+        container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    } else {
+        container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    }
+}
+</script>
 <?php endif; ?>
