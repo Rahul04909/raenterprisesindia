@@ -13,7 +13,7 @@
         </a>
         <div class="user-profile">
             <div class="user-avatar"></div> <!-- Placeholder -->
-            <span>Howdy, Admin</span>
+            <span>Howdy, <?php echo htmlspecialchars($_SESSION['admin_username'] ?? 'Admin'); ?></span>
         </div>
     </div>
 </header>

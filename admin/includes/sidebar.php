@@ -58,6 +58,7 @@
                 <span class="submenu-icon"><i class="fa-solid fa-chevron-right"></i></span>
             </a>
             <ul class="submenu">
+                <li><a href="<?php echo $adminBase; ?>/profile.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'profile.php' ? 'active' : ''; ?>">Profile</a></li>
                 <li><a href="#">General</a></li>
                 <li><a href="#">Security</a></li>
             </ul>
