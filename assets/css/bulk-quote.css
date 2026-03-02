@@ -1,0 +1,185 @@
+/* Bulk Quote Modal Styles */
+.bulk-quote-modal {
+    display: none;
+    position: fixed;
+    z-index: 10002;
+    /* Higher than product quote modal if any */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.bulk-modal-content {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 600px;
+    position: relative;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    animation: bulkModalSlide 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+@keyframes bulkModalSlide {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.bulk-close {
+    position: absolute;
+    right: 25px;
+    top: 20px;
+    font-size: 24px;
+    color: #999;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.bulk-close:hover {
+    color: #333;
+}
+
+.bulk-modal-header {
+    border-bottom: 2px solid #f0f2f5;
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+}
+
+.bulk-modal-header h2 {
+    font-size: 22px;
+    color: #1a202c;
+    margin: 0;
+}
+
+.bulk-modal-header p {
+    font-size: 14px;
+    color: #718096;
+    margin-top: 5px;
+}
+
+.bulk-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.bulk-form-group {
+    margin-bottom: 18px;
+}
+
+.bulk-form-group.full-width {
+    grid-column: span 2;
+}
+
+.bulk-form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #4a5568;
+    margin-bottom: 6px;
+}
+
+.bulk-form-group input,
+.bulk-form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: all 0.2s;
+    background: #f8fafc;
+}
+
+.bulk-form-group input:focus,
+.bulk-form-group textarea:focus {
+    border-color: #3182ce;
+    background: #fff;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
+}
+
+.bulk-file-upload {
+    border: 2px dashed #e2e8f0;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    background: #f8fafc;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.bulk-file-upload:hover {
+    border-color: #3182ce;
+    background: #ebf8ff;
+}
+
+.bulk-file-upload i {
+    font-size: 24px;
+    color: #3182ce;
+    margin-bottom: 10px;
+}
+
+.bulk-file-upload span {
+    display: block;
+    font-size: 13px;
+    color: #718096;
+}
+
+.bulk-submit-btn {
+    width: 100%;
+    background: #d32f2f;
+    color: #fff;
+    border: none;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 10px;
+}
+
+.bulk-submit-btn:hover {
+    background: #b71c1c;
+}
+
+.bulk-success-message {
+    text-align: center;
+    padding: 30px 0;
+}
+
+.bulk-success-icon {
+    font-size: 64px;
+    color: #48bb78;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 640px) {
+    .bulk-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .bulk-form-group.full-width {
+        grid-column: span 1;
+    }
+
+    .bulk-modal-content {
+        padding: 20px;
+    }
+}

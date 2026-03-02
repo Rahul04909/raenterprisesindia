@@ -38,7 +38,8 @@
                 <span class="submenu-icon"><i class="fa-solid fa-chevron-right"></i></span>
             </a>
             <ul class="submenu">
-                <li><a href="<?php echo $adminBase; ?>/quote-requests/index.php" class="<?php echo strpos($_SERVER['REQUEST_URI'], '/quote-requests/') !== false ? 'active' : ''; ?>">All Requests</a></li>
+                <li><a href="<?php echo $adminBase; ?>/quote-requests/index.php" class="<?php echo strpos($_SERVER['REQUEST_URI'], '/quote-requests/') !== false ? 'active' : ''; ?>">Product Quotes</a></li>
+                <li><a href="<?php echo $adminBase; ?>/bulk-quotes/index.php" class="<?php echo strpos($_SERVER['REQUEST_URI'], '/bulk-quotes/') !== false ? 'active' : ''; ?>">Bulk Quotes</a></li>
             </ul>
         </li>
 
