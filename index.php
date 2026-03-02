@@ -20,6 +20,10 @@
 <link rel="stylesheet" href="assets/css/category_wise_products.css">
 <?php include 'components/categoery-wise-products.php'; ?>
 
+<!-- Our Team Section -->
+<link rel="stylesheet" href="assets/css/our-team.css">
+<?php include 'components/our-team.php'; ?>
+
 <!-- Features/Trust Section -->
 <link rel="stylesheet" href="assets/css/features.css">
 <?php include 'components/features.php'; ?>

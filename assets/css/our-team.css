@@ -1,0 +1,147 @@
+/* Our Team Section */
+.team-section {
+    padding: 60px 0;
+    background-color: #fff;
+    overflow: hidden;
+}
+
+.team-container {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 15px;
+    position: relative;
+}
+
+.team-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.team-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #212121;
+    margin-bottom: 10px;
+}
+
+.team-subtitle {
+    font-size: 16px;
+    color: #757575;
+}
+
+/* Slider Wrapper */
+.team-slider-wrapper {
+    position: relative;
+    padding: 0 40px;
+}
+
+.team-slider {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    gap: 20px;
+    padding: 10px 0 30px;
+    scrollbar-width: none; /* Firefox */
+}
+
+.team-slider::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+/* Team Card */
+.team-card {
+    min-width: 280px;
+    background: #fff;
+    border-radius: 12px;
+    padding: 30px 20px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+    border: 1px solid #f0f0f0;
+}
+
+.team-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    border-color: #2874f0;
+}
+
+.team-member-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto 20px;
+    border: 4px solid #fff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.team-card:hover .team-member-img {
+    transform: scale(1.05);
+}
+
+.team-member-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #212121;
+    margin-bottom: 5px;
+}
+
+.team-member-designation {
+    font-size: 14px;
+    color: #2874f0;
+    font-weight: 500;
+}
+
+/* Navigation Buttons */
+.team-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    background: #fff;
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+    transition: all 0.3s ease;
+}
+
+.team-nav-btn:hover {
+    background: #2874f0;
+    color: #fff;
+}
+
+.team-nav-btn.prev-btn {
+    left: 0;
+}
+
+.team-nav-btn.next-btn {
+    right: 0;
+}
+
+/* Responsive Adsustments */
+@media (max-width: 768px) {
+    .team-section {
+        padding: 40px 0;
+    }
+    
+    .team-slider-wrapper {
+        padding: 0;
+    }
+    
+    .team-nav-btn {
+        display: none; /* Use touch scroll on mobile */
+    }
+    
+    .team-card {
+        min-width: 240px;
+    }
+}
