@@ -16,6 +16,10 @@
 <link rel="stylesheet" href="assets/css/bestsellers.css">
 <?php include 'components/bestsellers.php'; ?>
 
+<!-- Our Services Section -->
+<link rel="stylesheet" href="assets/css/our-services.css">
+<?php include 'components/our-services.php'; ?>
+
 <!-- Safety Section -->
 <link rel="stylesheet" href="assets/css/category_wise_products.css">
 <?php include 'components/categoery-wise-products.php'; ?>
