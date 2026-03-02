@@ -2,34 +2,34 @@
 // Mock Team Data (Can be fetched from DB in future)
 $team_members = [
     [
-        'name' => 'Rahul Sharma',
+        'name' => 'Mr. Arjun Kumar',
         'designation' => 'Founder & CEO',
-        'image' => 'https://i.pravatar.cc/150?u=rahul'
+        'image' => 'assets/team-members/arjun-kumar.jpeg'
     ],
     [
-        'name' => 'Priya Gupta',
+        'name' => 'Ansh Kumar',
         'designation' => 'Operations Manager',
-        'image' => 'https://i.pravatar.cc/150?u=priya'
+        'image' => 'assets/team-members/ansh-kumar.jpeg'
     ],
     [
-        'name' => 'Amit Verma',
+        'name' => 'Kushal Veer',
         'designation' => 'Technical Lead',
-        'image' => 'https://i.pravatar.cc/150?u=amit'
+        'image' => 'assets/team-members/kushal-veer.jpeg'
     ],
     [
-        'name' => 'Sneha Reddy',
+        'name' => 'Sourabh Saini',
         'designation' => 'Customer Relations',
-        'image' => 'https://i.pravatar.cc/150?u=sneha'
+        'image' => 'assets/team-members/sourabh-saini.jpeg'
     ],
     [
-        'name' => 'Vikram Singh',
+        'name' => 'Md Imran',
         'designation' => 'Sales Director',
-        'image' => 'https://i.pravatar.cc/150?u=vikram'
+        'image' => 'assets/team-members/md-imran.jpeg'
     ],
     [
-        'name' => 'Anjali Mehta',
+        'name' => 'Manish Kumar',
         'designation' => 'Product Designer',
-        'image' => 'https://i.pravatar.cc/150?u=anjali'
+        'image' => 'assets/team-members/manish.jpeg'
     ]
 ];
 ?>
