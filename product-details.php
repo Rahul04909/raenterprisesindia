@@ -138,7 +138,7 @@ try {
                 <?php else: ?>
                     <div style="display:flex; gap:10px; width:100%;">
                         <a href="https://wa.me/919999049135?text=I am interested in <?php echo urlencode($product['name']); ?>" target="_blank" class="action-btn btn-buy" style="background:#25D366; flex:1;"><i class="fa-brands fa-whatsapp"></i> Enquire Now</a>
-                        <a href="mailto:support@raenterprises.com?subject=Quote Request for <?php echo urlencode($product['name']); ?>" class="action-btn btn-cart" style="background:#2874f0; flex:1;"><i class="fa-solid fa-envelope"></i> Get a Quote</a>
+                        <button class="action-btn btn-cart" style="background:#2874f0; flex:1;" onclick="openQuoteModal()"><i class="fa-solid fa-file-invoice"></i> Get a Quote</button>
                     </div>
                 <?php endif; ?>
             </div>
@@ -353,7 +353,7 @@ function toggleReviewForm() {
         <button class="action-btn btn-buy" style="flex:1;"><i class="fa-solid fa-bolt"></i> Buy Now</button>
     <?php else: ?>
         <a href="https://wa.me/919999049135?text=I am interested in <?php echo urlencode($product['name']); ?>" class="action-btn btn-buy" style="flex:1; background:#25D366;"><i class="fa-brands fa-whatsapp"></i> Enquire Now</a>
-        <a href="mailto:support@raenterprises.com?subject=Quote Request for <?php echo urlencode($product['name']); ?>" class="action-btn btn-cart" style="flex:1; background:#2874f0;"><i class="fa-solid fa-envelope"></i> Get a Quote</a>
+        <button class="action-btn btn-cart" style="flex:1; background:#2874f0;" onclick="openQuoteModal()"><i class="fa-solid fa-file-invoice"></i> Get a Quote</button>
     <?php endif; ?>
 </div>
 
@@ -367,5 +367,83 @@ function changeImage(el, src) {
 }
 </script>
 
+<!-- Quote Modal -->
+<div id="quoteModal" class="quote-modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeQuoteModal()">&times;</span>
+        
+        <?php if ($quote_success): ?>
+            <div class="success-screen">
+                <div class="success-icon"><i class="fa-solid fa-circle-check"></i></div>
+                <h2>Quote Submitted Successfully!</h2>
+                <p>We have received your enquiry for <strong><?php echo htmlspecialchars($product['name']); ?></strong>. Our team will contact you shortly.</p>
+                <button class="submit-btn" style="margin-top:20px;" onclick="closeQuoteModal()">Close</button>
+            </div>
+        <?php else: ?>
+            <div class="form-screen">
+                <h2 style="margin-bottom:20px; font-size:20px; border-bottom:1px solid #eee; padding-bottom:10px;">Request a Bulk Quote</h2>
+                <form method="POST" action="">
+                    <input type="hidden" name="form_token" value="<?php echo bin2hex(random_bytes(16)); ?>">
+                    <div class="form-group">
+                        <label>Your Full Name</label>
+                        <input type="text" name="quote_name" placeholder="Enter your name" required>
+                    </div>
+                    <div style="display:flex; gap:15px;">
+                        <div class="form-group" style="flex:1;">
+                            <label>Email ID</label>
+                            <input type="email" name="quote_email" placeholder="email@example.com" required>
+                        </div>
+                        <div class="form-group" style="flex:1;">
+                            <label>Mobile Number</label>
+                            <input type="tel" name="quote_mobile" placeholder="10-digit number" pattern="[0-9]{10}" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Quantity Required</label>
+                        <input type="number" name="quote_qty" placeholder="e.g. 50" min="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Message/Special Requirements</label>
+                        <textarea name="quote_message" rows="3" placeholder="Tell us more about your requirement..."></textarea>
+                    </div>
+                    <button type="submit" name="submit_quote" class="submit-btn">Send My Quote Request</button>
+                </form>
+            </div>
+        <?php endif; ?>
+    </div>
+</div>
+
+<script>
+function openQuoteModal() {
+    document.getElementById('quoteModal').style.display = 'flex';
+}
+
+function closeQuoteModal() {
+    document.getElementById('quoteModal').style.display = 'none';
+    // Clear URL parameter if exists
+    if (window.location.search.includes('quote=success')) {
+        const url = new URL(window.location);
+        url.searchParams.delete('quote');
+        window.history.replaceState({}, '', url);
+    }
+}
+
+// Open modal automatically if success
+<?php if ($quote_success): ?>
+window.onload = function() {
+    openQuoteModal();
+}
+<?php endif; ?>
+
+// Close modal when clicking outside
+window.onclick = function(event) {
+    let modal = document.getElementById('quoteModal');
+    if (event.target == modal) {
+        closeQuoteModal();
+    }
+}
+</script>
+
 <link rel="stylesheet" href="assets/css/footer.css">
 <?php include 'includes/footer.php'; ?>
+
