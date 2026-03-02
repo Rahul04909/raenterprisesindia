@@ -31,16 +31,14 @@
             </ul>
         </li>
 
-        <li class="menu-item-has-children">
+        <li class="menu-item-has-children <?php echo strpos($_SERVER['REQUEST_URI'], '/quote-requests/') !== false ? 'open' : ''; ?>">
             <a href="#">
-                <i class="fa-solid fa-cart-shopping"></i>
-                <span>Orders</span>
+                <i class="fa-solid fa-file-invoice"></i>
+                <span>Quote Requests</span>
                 <span class="submenu-icon"><i class="fa-solid fa-chevron-right"></i></span>
             </a>
-             <ul class="submenu">
-                <li><a href="#">All Orders</a></li>
-                <li><a href="#">Pending</a></li>
-                <li><a href="#">Completed</a></li>
+            <ul class="submenu">
+                <li><a href="<?php echo $adminBase; ?>/quote-requests/index.php" class="<?php echo strpos($_SERVER['REQUEST_URI'], '/quote-requests/') !== false ? 'active' : ''; ?>">All Requests</a></li>
             </ul>
         </li>
 

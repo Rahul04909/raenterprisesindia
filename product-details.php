@@ -86,6 +86,33 @@ try {
         $stmtRelated->execute([$product['category_id'], $product['id']]);
         $relatedProducts = $stmtRelated->fetchAll();
     }
+    // Handle Quote Submission
+    $quote_success = false;
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_quote'])) {
+        $q_name = trim($_POST['quote_name']);
+        $q_email = trim($_POST['quote_email']);
+        $q_mobile = trim($_POST['quote_mobile']);
+        $q_qty = (int)$_POST['quote_qty'];
+        $q_msg = trim($_POST['quote_message']);
+        
+        // Anti-duplicate check using session
+        $form_token = $_POST['form_token'] ?? '';
+        if (isset($_SESSION['last_form_token']) && $_SESSION['last_form_token'] === $form_token) {
+            // Already submitted, skip insert
+        } else {
+            $stmtQuote = $pdo->prepare("INSERT INTO product_quotes (product_id, name, email, mobile, quantity, message) VALUES (?, ?, ?, ?, ?, ?)");
+            if ($stmtQuote->execute([$product['id'], $q_name, $q_email, $q_mobile, $q_qty, $q_msg])) {
+                $_SESSION['last_form_token'] = $form_token;
+                $_SESSION['quote_success'] = true;
+                header("Location: product-details.php?slug=" . $product['slug'] . "&quote=success");
+                exit;
+            }
+        }
+    }
+
+    if (isset($_GET['quote']) && $_GET['quote'] === 'success') {
+        $quote_success = true;
+    }
 
 } catch (PDOException $e) {
     die("Error: " . $e->getMessage());
