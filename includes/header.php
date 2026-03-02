@@ -21,13 +21,7 @@
                 <img src="assets/logo/logo.png" alt="RA Enterprises" onerror="this.src='https://placehold.co/150x50?text=RA+Enterprises'">
             </a>
             
-            <div class="location-selector d-md-flex">
-                <i class="fa-solid fa-location-dot"></i>
-                <div class="location-text">
-                    <span>Deliver to</span>
-                    <strong>Select Location ></strong>
-                </div>
-            </div>
+
         </div>
 
         <!-- Search Bar -->
@@ -40,19 +34,14 @@
 
         <!-- Nav Actions -->
         <div class="nav-actions">
-            <a href="#" class="nav-item">
-                <i class="fa-regular fa-user"></i>
-                <span>Login Now</span>
+            <a href="#" class="nav-item get-quote-btn">
+                <i class="fa-solid fa-file-invoice"></i>
+                <span>Get Bulk Quote</span>
             </a>
             
-            <a href="#" class="nav-item">
-                <i class="fa-solid fa-truck-fast"></i>
-                <span>Track Order</span>
-            </a>
-            
-            <a href="#" class="nav-item">
-                <i class="fa-solid fa-cart-shopping"></i>
-                <span>Cart</span>
+            <a href="https://wa.me/919999049135" class="nav-item whatsapp-btn" target="_blank">
+                <i class="fa-brands fa-whatsapp"></i>
+                <span>+91 9999049135</span>
             </a>
             
              <div class="nav-item mobile-toggle">

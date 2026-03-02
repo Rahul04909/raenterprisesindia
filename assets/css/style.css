@@ -1,6 +1,7 @@
 /* Global Styles */
 :root {
-    --primary-color: #d32f2f; /* Red from the screenshot */
+    --primary-color: #d32f2f;
+    /* Red from the screenshot */
     --secondary-color: #333;
     --white: #ffffff;
     --light-gray: #f4f4f4;
@@ -33,7 +34,7 @@ ul {
 /* Header Container */
 .main-header {
     background-color: var(--white);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -59,7 +60,8 @@ ul {
 }
 
 .brand-logo img {
-    height: 50px; /* Adjust based on actual logo */
+    height: 50px;
+    /* Adjust based on actual logo */
     width: auto;
 }
 
@@ -69,7 +71,8 @@ ul {
     font-size: 14px;
     color: var(--secondary-color);
     cursor: pointer;
-    display: none; /* Hidden on very small screens, shown on md+ */
+    display: none;
+    /* Hidden on very small screens, shown on md+ */
 }
 
 .location-selector i {
@@ -131,25 +134,44 @@ ul {
 .nav-actions {
     display: flex;
     align-items: center;
-    gap: 25px;
+    gap: 15px;
 }
 
 .nav-item {
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 500;
     cursor: pointer;
-    transition: color 0.3s;
+    transition: all 0.3s ease;
+    padding: 8px 12px;
+    border-radius: 4px;
 }
 
-.nav-item:hover {
-    color: var(--primary-color);
+.get-quote-btn {
+    background-color: var(--primary-color);
+    color: var(--white);
+}
+
+.get-quote-btn:hover {
+    background-color: #b71c1c;
+    color: var(--white);
+}
+
+.whatsapp-btn {
+    background-color: #25d366;
+    /* WhatsApp Green */
+    color: var(--white);
+}
+
+.whatsapp-btn:hover {
+    background-color: #128c7e;
+    color: var(--white);
 }
 
 .nav-item i {
-    font-size: 20px;
+    font-size: 18px;
 }
 
 /* Mobile Toggle */
@@ -157,6 +179,7 @@ ul {
     display: none;
     font-size: 24px;
     cursor: pointer;
+    color: var(--secondary-color);
 }
 
 /* Responsive Design */
@@ -164,15 +187,16 @@ ul {
     .location-selector {
         display: none;
     }
-    
+
     .search-container {
         margin: 0 20px;
     }
-    
+
     .nav-item span {
-        display: none; /* Hide text on tablets */
+        display: none;
+        /* Hide text on tablets */
     }
-    
+
     .nav-item {
         gap: 0;
     }
@@ -185,18 +209,19 @@ ul {
     }
 
     .search-container {
-        display: none; /* Hide main search on mobile, show icon or move to separate row */
+        display: none;
+        /* Hide main search on mobile, show icon or move to separate row */
     }
 
     .nav-actions {
         gap: 15px;
     }
-    
+
     .mobile-toggle {
         display: block;
         margin-left: 15px;
     }
-    
+
     /* Mobile Search (Below Header) */
     .mobile-search-bar {
         display: flex;
@@ -211,17 +236,31 @@ ul {
         border: 1px solid #ddd;
         border-radius: 4px;
     }
-    
+
     .brand-logo img {
         height: 35px;
     }
 }
 
 /* Utility Classes */
-.d-none { display: none; }
-.d-flex { display: flex; }
-.d-md-flex { display: none; }
+.d-none {
+    display: none;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.d-md-flex {
+    display: none;
+}
+
 @media(min-width: 768px) {
-    .d-md-flex { display: flex; }
-    .mobile-search-bar { display: none; }
+    .d-md-flex {
+        display: flex;
+    }
+
+    .mobile-search-bar {
+        display: none;
+    }
 }
