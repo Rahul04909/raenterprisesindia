@@ -25,7 +25,17 @@ try {
     if (isset($_FILES['attachment']) && $_FILES['attachment']['error'] === UPLOAD_ERR_OK) {
         $file = $_FILES['attachment'];
         $fileName = time() . '_' . basename($file['name']);
-        $uploadDir = __DIR__ . '/../assets/uploads/bulk-quotes/';
+        $uploadDir = realpath(__DIR__ . '/../assets/uploads/bulk-quotes/') . DIRECTORY_SEPARATOR;
+        if (!$uploadDir || $uploadDir === DIRECTORY_SEPARATOR) {
+            echo json_encode(['success' => false, 'message' => 'Upload directory does not exist.']);
+            exit;
+        }
+
+        if (!is_writable($uploadDir)) {
+            echo json_encode(['success' => false, 'message' => 'Upload directory is not writable.']);
+            exit;
+        }
+
         $targetPath = $uploadDir . $fileName;
 
         // Allowed types
@@ -45,7 +55,8 @@ try {
         if (move_uploaded_file($file['tmp_name'], $targetPath)) {
             $attachment_path = 'assets/uploads/bulk-quotes/' . $fileName;
         } else {
-            echo json_encode(['success' => false, 'message' => 'Failed to save attachment.']);
+            $error = error_get_last();
+            echo json_encode(['success' => false, 'message' => 'Failed to save attachment. ' . ($error['message'] ?? '')]);
             exit;
         }
     }
