@@ -22,12 +22,17 @@ try {
     $attachment_path = null;
     
     // File Upload Handling
-    if (isset($_FILES['attachment']) && $_FILES['attachment']['error'] === UPLOAD_ERR_OK) {
+    if (isset($_FILES['attachment']) && $_FILES['attachment']['error'] !== UPLOAD_ERR_NO_FILE) {
+        if ($_FILES['attachment']['error'] !== UPLOAD_ERR_OK) {
+            echo json_encode(['success' => false, 'message' => 'Upload error code: ' . $_FILES['attachment']['error']]);
+            exit;
+        }
+
         $file = $_FILES['attachment'];
         $fileName = time() . '_' . basename($file['name']);
         
         // Define absolute path more reliably
-        $projectRoot = dirname(__DIR__); // d:\wamp\www\ra-enterprises-india
+        $projectRoot = dirname(__DIR__); 
         $absUploadDir = $projectRoot . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . 'bulk-quotes' . DIRECTORY_SEPARATOR;
         
         if (!is_dir($absUploadDir)) {
@@ -56,6 +61,7 @@ try {
         }
 
         if (move_uploaded_file($file['tmp_name'], $targetPath)) {
+            // Store relative path for database
             $attachment_path = 'assets/uploads/bulk-quotes/' . $fileName;
         } else {
             $error = error_get_last();
