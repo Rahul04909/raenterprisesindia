@@ -1,4 +1,7 @@
-<?php include '../includes/header.php'; ?>
+<?php 
+$rootPath = '../'; 
+include $rootPath . 'includes/header.php'; 
+?>
 
 <link rel="stylesheet" href="../assets/css/service-page.css">
 

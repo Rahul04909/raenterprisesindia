@@ -1,4 +1,7 @@
-<?php if (session_status() === PHP_SESSION_NONE) { session_start(); } ?>
+<?php 
+if (session_status() === PHP_SESSION_NONE) { session_start(); } 
+$rootPath = isset($rootPath) ? $rootPath : '';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,8 +13,8 @@
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/bulk-quote.css">
+    <link rel="stylesheet" href="<?php echo $rootPath; ?>assets/css/style.css">
+    <link rel="stylesheet" href="<?php echo $rootPath; ?>assets/css/bulk-quote.css">
 </head>
 <body>
 
@@ -19,8 +22,8 @@
     <nav class="navbar">
         <!-- Logo Section -->
         <div class="logo-container">
-            <a href="index.php" class="brand-logo">
-                <img src="assets/logo/logo.png" alt="RA Enterprises" onerror="this.src='https://placehold.co/150x50?text=RA+Enterprises'">
+            <a href="<?php echo $rootPath; ?>index.php" class="brand-logo">
+                <img src="<?php echo $rootPath; ?>assets/logo/logo.png" alt="RA Enterprises" onerror="this.src='https://placehold.co/150x50?text=RA+Enterprises'">
             </a>
             
 
@@ -151,7 +154,7 @@ async function handleBulkSubmit(e) {
     btn.innerText = 'Sending...';
 
     try {
-        const response = await fetch('handlers/bulk-quote-handler.php', {
+        const response = await fetch('<?php echo $rootPath; ?>handlers/bulk-quote-handler.php', {
             method: 'POST',
             body: formData
         });

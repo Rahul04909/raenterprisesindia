@@ -2,7 +2,7 @@
     <div class="footer-container">
         <!-- Column 1: About -->
         <div class="footer-column">
-            <a href="index.php" class="footer-logo">RA Enterprises</a>
+            <a href="<?php echo $rootPath; ?>index.php" class="footer-logo">RA Enterprises</a>
             <p class="footer-desc">
                 Your one-stop shop for all industrial tools and safety equipment. Quality products at the best prices, delivered nationwide.
             </p>
@@ -63,5 +63,5 @@
 </footer>
 
 <!-- Mobile Bottom Navigation -->
-<link rel="stylesheet" href="assets/css/mobile_bottom_nav.css">
+<link rel="stylesheet" href="<?php echo $rootPath; ?>assets/css/mobile_bottom_nav.css">
 <?php include __DIR__ . '/../components/mobile_bottom_nav.php'; ?>

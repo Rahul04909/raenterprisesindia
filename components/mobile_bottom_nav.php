@@ -1,11 +1,12 @@
 <!-- Mobile Bottom Navigation -->
+<?php $rootPath = isset($rootPath) ? $rootPath : ''; ?>
 <div class="mobile-bottom-nav">
-    <a href="login.php" class="nav-item">
+    <a href="<?php echo $rootPath; ?>login.php" class="nav-item">
         <i class="fa-regular fa-circle-user"></i>
         <span>Login</span>
     </a>
     
-    <a href="products.php?filter=24hours" class="nav-item">
+    <a href="<?php echo $rootPath; ?>products.php?filter=24hours" class="nav-item">
         <i class="fa-solid fa-clock-rotate-left"></i>
         <span>24hrs Delivery</span>
     </a>
@@ -16,12 +17,12 @@
         </div>
     </div>
     
-    <a href="orders.php" class="nav-item">
+    <a href="<?php echo $rootPath; ?>orders.php" class="nav-item">
         <i class="fa-solid fa-clipboard-list"></i>
         <span>Orders</span>
     </a>
     
-    <a href="cart.php" class="nav-item">
+    <a href="<?php echo $rootPath; ?>cart.php" class="nav-item">
         <i class="fa-solid fa-cart-shopping"></i>
         <span>My Cart</span>
         <!-- Optional Badge -->
