@@ -1,0 +1,303 @@
+/* M&E Service Page Styling */
+:root {
+    --primary-blue: #0a2540;
+    --accent-blue: #2874f0;
+    --text-dark: #2d3748;
+    --text-light: #718096;
+    --bg-gray: #f8fafc;
+    --white: #ffffff;
+    --transition: all 0.3s ease;
+}
+
+.service-page-wrapper {
+    font-family: 'Roboto', sans-serif;
+    color: var(--text-dark);
+    line-height: 1.6;
+}
+
+/* Sections General */
+.service-section {
+    padding: 80px 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.section-title h2 {
+    font-size: 32px;
+    color: var(--primary-blue);
+    font-weight: 700;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.section-title h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: var(--accent-blue);
+}
+
+/* 1. Hero Section */
+.service-hero {
+    background: linear-gradient(135deg, rgba(10,37,64,0.9) 0%, rgba(40,116,240,0.8) 100%), url('https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=1600') center/cover no-repeat;
+    padding: 120px 0;
+    text-align: center;
+    color: var(--white);
+}
+
+.hero-content h1 {
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.hero-content p {
+    font-size: 18px;
+    max-width: 800px;
+    margin: 0 auto 30px;
+    opacity: 0.9;
+}
+
+.hero-cta .cta-btn {
+    display: inline-block;
+    padding: 15px 35px;
+    background: var(--accent-blue);
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 700;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: var(--transition);
+}
+
+.hero-cta .cta-btn:hover {
+    background: var(--white);
+    color: var(--accent-blue);
+    transform: translateY(-2px);
+}
+
+/* 2. About Section */
+.about-service {
+    background: var(--white);
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.about-text h3 {
+    font-size: 24px;
+    color: var(--primary-blue);
+    margin-bottom: 15px;
+}
+
+.about-text p {
+    color: var(--text-light);
+    margin-bottom: 20px;
+}
+
+.about-image img {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+/* 3. Consumable Supply */
+.supply-section {
+    background: var(--bg-gray);
+}
+
+.supply-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.supply-card {
+    background: var(--white);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    transition: var(--transition);
+}
+
+.supply-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.supply-card i {
+    font-size: 40px;
+    color: var(--accent-blue);
+    margin-bottom: 20px;
+}
+
+.supply-card h3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.supply-card ul {
+    list-style: none;
+    padding: 0;
+}
+
+.supply-card ul li {
+    padding-left: 20px;
+    position: relative;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: var(--text-light);
+}
+
+.supply-card ul li::before {
+    content: '\f00c';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    left: 0;
+    color: #48bb78;
+}
+
+/* 4. Repairing Services */
+.repair-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.repair-item {
+    display: flex;
+    gap: 15px;
+    background: #fff;
+    padding: 20px;
+    border: 1px solid #edf2f7;
+    border-radius: 8px;
+}
+
+.repair-icon {
+    width: 50px;
+    height: 50px;
+    background: #ebf8ff;
+    color: var(--accent-blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+/* 5. Why Choose Us */
+.why-choose {
+    background: var(--primary-blue);
+    color: var(--white);
+}
+
+.why-choose h2 { color: var(--white); }
+
+.choice-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+    text-align: center;
+}
+
+.choice-item i {
+    font-size: 36px;
+    color: var(--accent-blue);
+    margin-bottom: 15px;
+}
+
+.choice-item h4 {
+    margin-bottom: 10px;
+}
+
+.choice-item p {
+    font-size: 13px;
+    opacity: 0.8;
+}
+
+/* 6. Industries */
+.industry-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.industry-card {
+    background: #fff;
+    text-align: center;
+    padding: 20px;
+    border: 1px solid #eee;
+    transition: var(--transition);
+}
+
+.industry-card:hover { border-color: var(--accent-blue); color: var(--accent-blue); }
+
+.industry-card i { font-size: 30px; margin-bottom: 10px; }
+
+/* 7. Process */
+.process-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    position: relative;
+}
+
+.process-step {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.step-number {
+    width: 40px;
+    height: 40px;
+    background: var(--accent-blue);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px;
+    font-weight: 700;
+}
+
+/* 8. CTA Section */
+.cta-section {
+    background: var(--bg-gray);
+    text-align: center;
+}
+
+/* Mobile Responsive */
+@media (max-width: 992px) {
+    .hero-content h1 { font-size: 36px; }
+    .choice-grid { grid-template-columns: 1fr 1fr; }
+    .process-grid { grid-template-columns: repeat(3, 1fr); gap: 30px; }
+    .industry-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 768px) {
+    .about-grid { grid-template-columns: 1fr; }
+    .choice-grid { grid-template-columns: 1fr; }
+    .industry-grid { grid-template-columns: 1fr; }
+    .process-grid { grid-template-columns: 1fr; }
+    .section-title h2 { font-size: 26px; }
+}
