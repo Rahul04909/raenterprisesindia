@@ -25,18 +25,21 @@ try {
     if (isset($_FILES['attachment']) && $_FILES['attachment']['error'] === UPLOAD_ERR_OK) {
         $file = $_FILES['attachment'];
         $fileName = time() . '_' . basename($file['name']);
-        $uploadDir = realpath(__DIR__ . '/../assets/uploads/bulk-quotes/') . DIRECTORY_SEPARATOR;
-        if (!$uploadDir || $uploadDir === DIRECTORY_SEPARATOR) {
-            echo json_encode(['success' => false, 'message' => 'Upload directory does not exist.']);
+        
+        // Define absolute path more reliably
+        $projectRoot = dirname(__DIR__); // d:\wamp\www\ra-enterprises-india
+        $absUploadDir = $projectRoot . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . 'bulk-quotes' . DIRECTORY_SEPARATOR;
+        
+        if (!is_dir($absUploadDir)) {
+            mkdir($absUploadDir, 0777, true);
+        }
+
+        if (!is_writable($absUploadDir)) {
+            echo json_encode(['success' => false, 'message' => 'Upload directory is not writable. Path: ' . $absUploadDir]);
             exit;
         }
 
-        if (!is_writable($uploadDir)) {
-            echo json_encode(['success' => false, 'message' => 'Upload directory is not writable.']);
-            exit;
-        }
-
-        $targetPath = $uploadDir . $fileName;
+        $targetPath = $absUploadDir . $fileName;
 
         // Allowed types
         $allowedExtensions = ['pdf', 'xlsx', 'xls', 'csv', 'docx', 'doc', 'jpg', 'jpeg', 'png'];
