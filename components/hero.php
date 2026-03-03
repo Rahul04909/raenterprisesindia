@@ -2,15 +2,15 @@
 // Simulating dynamic banners (In a real app, this would come from a database)
 $banners = [
     [
-        'image' => 'https://placehold.co/1200x350/2980b9/ffffff?text=Super+Sale+Live+Now',
+        'image' => 'assets/hero/hero-1.jpg',
         'alt' => 'Super Sale'
     ],
     [
-        'image' => 'https://placehold.co/1200x350/e74c3c/ffffff?text=New+Arrivals+Starting+@999',
+        'image' => 'assets/hero/hero-1.jpg',
         'alt' => 'New Arrivals'
     ],
     [
-        'image' => 'https://placehold.co/1200x350/27ae60/ffffff?text=Free+Delivery+On+First+Order',
+        'image' => 'assets/hero/hero-1.jpg',
         'alt' => 'Free Delivery'
     ]
 ];
