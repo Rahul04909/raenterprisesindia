@@ -43,15 +43,15 @@
             <h3 class="footer-heading">Contact Us</h3>
             <div class="footer-contact-item">
                 <i class="fa-solid fa-location-dot"></i>
-                <span>123 Industrial Area, Phase 1, New Delhi, India - 110020</span>
+                <span>3rd floor, B-192, Pul Prahladpur, New Delhi, India - 110044</span>
             </div>
             <div class="footer-contact-item">
                 <i class="fa-solid fa-phone"></i>
-                <span>+91 9999049135</span>
+                <span>+91 8178225111</span>
             </div>
             <div class="footer-contact-item">
                 <i class="fa-solid fa-envelope"></i>
-                <span>support@raenterprises.com</span>
+                <span>info@raenterprisesindia.in</span>
             </div>
         </div>
     </div>

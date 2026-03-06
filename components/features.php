@@ -23,7 +23,7 @@ $features = [
     [
         'icon' => 'fa-solid fa-headset',
         'title' => '365 Days Help Desk',
-        'desc' => '<div class="feature-whatsapp"><i class="fa-brands fa-whatsapp"></i> +91 9999049135</div>'
+        'desc' => '<div class="feature-whatsapp"><i class="fa-brands fa-whatsapp"></i> +91 8178225111</div>'
     ]
 ];
 ?>

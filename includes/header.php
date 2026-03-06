@@ -44,9 +44,9 @@ $rootPath = isset($rootPath) ? $rootPath : '';
                 <span>Get Bulk Quote</span>
             </a>
             
-            <a href="https://wa.me/919999049135" class="nav-item whatsapp-btn" target="_blank">
+            <a href="https://wa.me/918178225111" class="nav-item whatsapp-btn" target="_blank">
                 <i class="fa-brands fa-whatsapp"></i>
-                <span>+91 9999049135</span>
+                <span>+91 8178225111</span>
             </a>
             
              <div class="nav-item mobile-toggle">
